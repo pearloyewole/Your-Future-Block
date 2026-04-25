@@ -1,63 +1,68 @@
-# RiskLens Makefile -- thin wrapper around the two pipelines and the API.
-# Both pipelines write to distinct DuckDB files; the API serves whichever
-# one DUCKDB_PATH points at.
+# RiskLens convenience targets.
+# All paths are relative to the repo root. Run from there.
+#
+#   make build-synth     # build the synthetic safety-net DB (offline, ~seconds)
+#   make build-real      # build the real-data DB (network, slow, can fail)
+#   make api-synth       # serve the synthetic DB on :8000
+#   make api-real        # serve the real DB on :8001
+#   make api-both        # run both APIs in parallel
+#   make clean-synth     # delete the synthetic DB
+#   make clean-real      # delete the real DB
 
-PY     ?= python
-SYNTH  := backend/data/processed/risklens.synthetic.duckdb
-REAL   := backend/data/processed/risklens.real.duckdb
+PY            ?= python
+UVICORN       ?= uvicorn
 
-.PHONY: help
-help: ## list available targets
-	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "  \033[36m%-18s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
+PROCESSED_DIR := backend/data/processed
+SYNTH         := $(PROCESSED_DIR)/risklens.synthetic.duckdb
+REAL          := $(PROCESSED_DIR)/risklens.real.duckdb
 
-# ---------- synthetic (offline, deterministic, demo-safe) ----------
-.PHONY: build-synth
-build-synth: ## build the synthetic DuckDB (no network, ~10s)
-	$(PY) -m pipelines.synthetic.build
+# Pydantic-settings reads env vars; we set them inline so each target is self-contained.
+.PHONY: help build-synth build-real api-synth api-real api-both \
+        clean-synth clean-real clean test lint
 
-.PHONY: api-synth
-api-synth: ## serve API against synthetic DB on :8000
-	cd backend && DUCKDB_PATH=$(abspath $(SYNTH)) \
-		uvicorn app.api:app --reload --port 8000
+help:
+	@echo "RiskLens targets:"
+	@echo "  build-synth    build $(SYNTH)"
+	@echo "  build-real     build $(REAL)"
+	@echo "  api-synth      serve synthetic DB on :8000"
+	@echo "  api-real       serve real DB on :8001"
+	@echo "  api-both       run both APIs side-by-side"
+	@echo "  clean-synth    rm $(SYNTH)"
+	@echo "  clean-real     rm $(REAL)"
+	@echo "  clean          rm both DuckDB files"
+	@echo "  test           pytest backend/tests"
+	@echo "  lint           ruff check ."
 
-# ---------- real (network-heavy, slow) ----------
-.PHONY: build-real
-build-real: ## run the real pipeline end-to-end (slow, requires downloads)
-	cd backend && $(PY) -m pipelines.real.00_grid && \
-	             $(PY) -m pipelines.real.10_climate --source nex-gddp && \
-	             $(PY) -m pipelines.real.11_calfire_fhsz && \
-	             $(PY) -m pipelines.real.13_fema_nfhl && \
-	             $(PY) -m pipelines.real.17_cdc_svi && \
-	             $(PY) -m pipelines.real.19_fema_nri && \
-	             $(PY) -m pipelines.real.90_compute_scores
+# ----- builds ---------------------------------------------------------------
+build-synth:
+	cd backend && $(PY) -m pipelines.synthetic.build
 
-.PHONY: api-real
-api-real: ## serve API against real DB on :8001
-	cd backend && DUCKDB_PATH=$(abspath $(REAL)) \
-		uvicorn app.api:app --reload --port 8001
+build-real:
+	cd backend && $(PY) -m pipelines.real.build
 
-# ---------- both at once ----------
-.PHONY: api-both
-api-both: ## run both APIs side-by-side (synthetic on :8000, real on :8001)
-	$(MAKE) -j 2 api-synth api-real
+# ----- API ------------------------------------------------------------------
+api-synth:
+	DUCKDB_PATH=$(SYNTH) $(UVICORN) backend.app.api:app --reload --port 8000
 
-# ---------- housekeeping ----------
-.PHONY: clean-synth
-clean-synth: ## delete the synthetic DB
+api-real:
+	DUCKDB_PATH=$(REAL) $(UVICORN) backend.app.api:app --reload --port 8001
+
+api-both:
+	@echo "Starting both APIs. Synthetic on :8000, real on :8001."
+	@$(MAKE) -j 2 api-synth api-real
+
+# ----- cleanup --------------------------------------------------------------
+clean-synth:
 	rm -f $(SYNTH) $(SYNTH).wal
 
-.PHONY: clean-real
-clean-real: ## delete the real DB
+clean-real:
 	rm -f $(REAL) $(REAL).wal
 
-.PHONY: clean-all
-clean-all: clean-synth clean-real ## delete both DBs
-	rm -rf backend/data/processed/*.parquet
+clean: clean-synth clean-real
 
-.PHONY: install
-install: ## install python deps (editable)
-	$(PY) -m pip install -e .[dev]
+# ----- dev ------------------------------------------------------------------
+test:
+	pytest backend/tests
 
-.PHONY: lint
-lint: ## ruff lint
+lint:
 	ruff check backend

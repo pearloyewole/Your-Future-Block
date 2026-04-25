@@ -55,6 +55,13 @@ dev = [
   "ipykernel>=6.29",
 ]
 
+[tool.setuptools]
+# Explicit so setuptools doesn't try to discover both `config/` and `backend/`
+# as top-level packages and bail out with "Multiple top-level packages".
+packages = ["backend", "backend.app", "backend.app.routers", "backend.app.services",
+            "backend.shared", "backend.pipelines",
+            "backend.pipelines.synthetic", "backend.pipelines.real"]
+
 [tool.ruff]
 line-length = 100
 target-version = "py311"
