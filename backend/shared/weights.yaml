@@ -1,0 +1,83 @@
+# RiskLens scoring weights — single source of truth for both pipelines.
+# Edit freely; both `pipelines/synthetic/build.py` and
+# `pipelines/real/build.py` read this file at build time.
+# Talking point: "transparent and adjustable, that's why they live in YAML."
+
+heat:
+  # Heat Risk = 60% future climate exposure
+  #          + 25% local urban heat amplifier (canopy, impervious)
+  #          + 15% social vulnerability
+  future_exposure: 0.60
+  local_amplifier: 0.25
+  social_vulnerability: 0.15
+
+  # Normalization bounds (raw value -> 0..100 linear scale, clamped):
+  bounds:
+    extra_heat_days_vs_baseline: [0, 60]    # +0 days: 0 score, +60 days: 100 score
+    extra_warm_nights_vs_baseline: [0, 60]
+    canopy_deficit_pct: [0, 100]            # 100 - tree_canopy_pct
+    impervious_pct: [0, 100]
+    svi_overall: [0.0, 1.0]
+
+wildfire:
+  baseline_hazard: 0.55                     # CAL FIRE FHSZ + WUI bump
+  future_climate_stress: 0.25               # hotter + drier deltas
+  terrain: 0.10                             # slope
+  social_vulnerability: 0.10
+
+  fhsz_score:                               # Categorical -> 0..100
+    None: 0
+    Moderate: 40
+    High: 70
+    "Very High": 95
+  wui_bump:                                 # add to baseline if cell intersects WUI
+    None: 0
+    Intermix: 8
+    Interface: 12
+  bounds:
+    future_stress: [0, 80]                  # combined heat-day delta + precip-deficit delta
+    slope_deg: [0, 30]
+    svi_overall: [0.0, 1.0]
+
+flood:
+  # Final = max(coastal, inland)
+  coastal:
+    inundation_score:                       # by lowest SLR threshold (ft)
+      0: 100
+      1: 95
+      2: 90
+      3: 80
+      4: 70
+      5: 60
+      6: 50
+      7: 40
+      8: 30
+      9: 20
+      10: 10
+      null: 0                               # never inundated within 10 ft
+  inland:
+    fema_zone_score:
+      VE: 95
+      AE: 85
+      A:  75
+      AO: 70
+      AH: 65
+      X500: 35                              # 500-yr / shaded X
+      X: 5
+      D: 5
+    impervious_weight: 0.20                 # fraction added scaled by impervious_pct/100
+    bounds:
+      precip_p99_delta_pct: [0, 50]         # % change in 99th-percentile precip vs baseline
+
+# Overall
+overall:
+  heat: 0.40
+  wildfire: 0.30
+  flood: 0.30
+
+labels:
+  - [0,   20,  "Very Low"]
+  - [21,  40,  "Low"]
+  - [41,  60,  "Moderate"]
+  - [61,  80,  "High"]
+  - [81,  100, "Very High"]
