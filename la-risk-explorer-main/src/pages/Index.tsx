@@ -197,7 +197,7 @@ const Index = () => {
             {[
               { tag: "Tomorrow", body: "Today's exposure, mapped block-by-block." },
               { tag: "In 30 years", body: "Mid-century projections under multiple emissions paths." },
-              { tag: "A century from now", body: "The long view — for the kids on this street." },
+              { tag: "A century from now", body: "The long view." },
             ].map((c) => (
               <div key={c.tag}>
                 <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{c.tag}</p>
@@ -308,12 +308,7 @@ const Index = () => {
             >
               Launch the atlas <ArrowRight className="h-4 w-4" />
             </Link>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 border border-foreground px-7 py-4 font-mono text-sm uppercase tracking-[0.16em] text-foreground transition hover:bg-foreground hover:text-background"
-            >
-              Read the brief
-            </a>
+           
           </div>
 
           <p className="mt-8 font-mono text-xs text-muted-foreground">

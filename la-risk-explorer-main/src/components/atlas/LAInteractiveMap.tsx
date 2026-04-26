@@ -1,12 +1,14 @@
 import { useEffect, useMemo } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import type { RiskMapPoint } from "./LAMap";
+import { toneForRisk } from "@/lib/riskTone";
 
 interface Props {
   points: RiskMapPoint[];
   selectedCellId: string | null;
   selectedLat: number | null;
   selectedLon: number | null;
+  focusVersion: number;
   onSelectPoint: (point: RiskMapPoint) => void;
 }
 
@@ -15,6 +17,7 @@ export function LAInteractiveMap({
   selectedCellId,
   selectedLat,
   selectedLon,
+  focusVersion,
   onSelectPoint,
 }: Props) {
   const center = useMemo<[number, number]>(() => {
@@ -35,10 +38,18 @@ export function LAInteractiveMap({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <FitToData points={points} selectedLat={selectedLat} selectedLon={selectedLon} />
+      <FitToData
+        points={points}
+        selectedLat={selectedLat}
+        selectedLon={selectedLon}
+        focusVersion={focusVersion}
+      />
 
       {points.map((point) => {
-        const tone = scoreTone(point.score);
+        const tone = toneForRisk({
+          score: point.score,
+          percentAboveMedian: point.percentAboveMedian,
+        });
         const color = scoreColor(tone);
         const isSelected = point.cellId === selectedCellId;
         const radius = 5 + point.score / 14;
@@ -61,6 +72,11 @@ export function LAInteractiveMap({
               <div className="space-y-1">
                 <div className="font-semibold">{point.neighborhood ?? "Map cell"}</div>
                 <div className="text-xs">Score: {point.score} ({point.label})</div>
+                <div className="text-xs">
+                  {point.percentAboveMedian === null
+                    ? "LA median comparison: N/A"
+                    : `LA median comparison: ${point.percentAboveMedian > 0 ? "+" : ""}${point.percentAboveMedian}%`}
+                </div>
                 <div className="text-xs text-muted-foreground">Tract: {point.tractFips ?? "unknown"}</div>
               </div>
             </Popup>
@@ -88,16 +104,18 @@ function FitToData({
   points,
   selectedLat,
   selectedLon,
+  focusVersion,
 }: {
   points: RiskMapPoint[];
   selectedLat: number | null;
   selectedLon: number | null;
+  focusVersion: number;
 }) {
   const map = useMap();
 
   useEffect(() => {
     if (selectedLat !== null && selectedLon !== null) {
-      map.flyTo([selectedLat, selectedLon], 13, { animate: true, duration: 0.8 });
+      map.flyTo([selectedLat, selectedLon], 14.7, { animate: true, duration: 0.9 });
       return;
     }
 
@@ -109,17 +127,9 @@ function FitToData({
     }
 
     map.fitBounds(coords, { padding: [40, 40], animate: true, maxZoom: 12 });
-  }, [map, points, selectedLat, selectedLon]);
+  }, [map, points, selectedLat, selectedLon, focusVersion]);
 
   return null;
-}
-
-function scoreTone(score: number): 1 | 2 | 3 | 4 | 5 {
-  if (score < 20) return 1;
-  if (score < 40) return 2;
-  if (score < 60) return 3;
-  if (score < 80) return 4;
-  return 5;
 }
 
 function scoreColor(tone: 1 | 2 | 3 | 4 | 5): string {

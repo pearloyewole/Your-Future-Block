@@ -12,6 +12,7 @@ interface Props {
   selectedCellId: string | null;
   selectedLat: number | null;
   selectedLon: number | null;
+  focusVersion: number;
   onSelectPoint: (point: RiskMapPoint) => void;
 }
 
@@ -50,11 +51,14 @@ export function LA3DMap({
   selectedCellId,
   selectedLat,
   selectedLon,
+  focusVersion,
   onSelectPoint,
 }: Props) {
   const mapContainerRef = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const onSelectPointRef = useRef(onSelectPoint);
+  const selectedLatRef = useRef<number | null>(selectedLat);
+  const selectedLonRef = useRef<number | null>(selectedLon);
   const pointIndex = useMemo(() => {
     const index = new Map<string, RiskMapPoint>();
     for (const feature of cells.features) {
@@ -67,6 +71,8 @@ export function LA3DMap({
   const fittedRef = useRef(false);
 
   onSelectPointRef.current = onSelectPoint;
+  selectedLatRef.current = selectedLat;
+  selectedLonRef.current = selectedLon;
   pointIndexRef.current = pointIndex;
 
   useEffect(() => {
@@ -83,7 +89,7 @@ export function LA3DMap({
     });
     mapRef.current = map;
 
-    map.on("load", () => {
+      map.on("load", () => {
       map.addSource(SOURCE_ID, {
         type: "geojson",
         data: cells,
@@ -96,15 +102,15 @@ export function LA3DMap({
         paint: {
           "fill-extrusion-color": [
             "step",
-            ["to-number", ["get", "score"], 0],
+            ["coalesce", ["to-number", ["get", "percent_above_median"]], 0],
             "#2a8f5d",
-            20,
+            -30,
             "#73b767",
-            40,
+            -10,
             "#dfc84f",
-            60,
+            10,
             "#de8a42",
-            80,
+            30,
             "#ce4a3c",
           ],
           "fill-extrusion-height": [
@@ -153,7 +159,7 @@ export function LA3DMap({
         map.getCanvas().style.cursor = "";
       });
 
-      map.on("click", EXTRUSION_LAYER_ID, (event) => {
+        map.on("click", EXTRUSION_LAYER_ID, (event) => {
         const feature = event.features?.[0];
         if (!feature) return;
 
@@ -163,9 +169,15 @@ export function LA3DMap({
         const point =
           pointIndexRef.current.get(cellId) ??
           mapFeatureToPoint(normalizeMapFeature(feature));
-        onSelectPointRef.current(point);
+          onSelectPointRef.current(point);
+        });
+
+        const readyLat = selectedLatRef.current;
+        const readyLon = selectedLonRef.current;
+        if (readyLat !== null && readyLon !== null) {
+          flyToSelection(map, readyLat, readyLon);
+        }
       });
-    });
 
     return () => {
       map.remove();
@@ -205,16 +217,8 @@ export function LA3DMap({
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
     if (selectedLat === null || selectedLon === null) return;
-
-    map.flyTo({
-      center: [selectedLon, selectedLat],
-      zoom: 12.4,
-      pitch: 60,
-      bearing: -18,
-      speed: 0.9,
-      essential: true,
-    });
-  }, [selectedLat, selectedLon]);
+    flyToSelection(map, selectedLat, selectedLon);
+  }, [selectedLat, selectedLon, focusVersion]);
 
   return <div ref={mapContainerRef} className="h-full w-full" />;
 }
@@ -263,6 +267,7 @@ function mapFeatureToPoint(feature: RiskMapCellFeature): RiskMapPoint {
     label: String(feature.properties.label ?? "Unknown"),
     neighborhood: feature.properties.neighborhood,
     tractFips: feature.properties.tract_fips,
+    percentAboveMedian: feature.properties.percent_above_median ?? null,
   };
 }
 
@@ -290,6 +295,21 @@ function normalizeMapFeature(feature: MapGeoJSONFeature): RiskMapCellFeature {
       hazard: String(feature.properties?.hazard ?? ""),
       score: Number(feature.properties?.score ?? 0),
       label: String(feature.properties?.label ?? "Unknown"),
+      la_median: Number(feature.properties?.la_median ?? 0) || null,
+      percent_above_median:
+        Number(feature.properties?.percent_above_median ?? 0) ||
+        (feature.properties?.percent_above_median === 0 ? 0 : null),
     },
   };
+}
+
+function flyToSelection(map: maplibregl.Map, lat: number, lon: number) {
+  map.flyTo({
+    center: [lon, lat],
+    zoom: 14.6,
+    pitch: 62,
+    bearing: -18,
+    speed: 0.9,
+    essential: true,
+  });
 }

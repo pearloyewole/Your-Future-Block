@@ -203,6 +203,10 @@ export class RiskEngine {
     const resolvedYear = this.resolveYear(year);
     const resolvedScenario = this.resolveScenario(scenario);
     const hazardKey = normalizeHazard(hazard);
+    const hazardDistribution =
+      this.distributions[String(resolvedYear)]?.[resolvedScenario]?.[hazardKey] ??
+      null;
+    const laMedian = hazardDistribution?.median ?? null;
 
     return {
       type: "FeatureCollection",
@@ -213,6 +217,8 @@ export class RiskEngine {
           scenario: resolvedScenario
         });
         const selected = scores[hazardKey];
+        const percentAboveMedian =
+          laMedian === null ? null : percentDifference(selected.score, laMedian);
         return {
           type: "Feature",
           geometry: feature.geometry,
@@ -222,7 +228,9 @@ export class RiskEngine {
             tract_fips: feature.properties.tract_fips,
             hazard: hazardKey,
             score: selected.score,
-            label: selected.label
+            label: selected.label,
+            la_median: laMedian,
+            percent_above_median: percentAboveMedian
           }
         };
       })

@@ -4,7 +4,7 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
 
 export type Scenario = "ssp245" | "ssp370" | "ssp585";
 export type Year = 2030 | 2050 | 2080 | 2100;
-export type HazardLayer = "heat" | "wildfire" | "flood";
+export type HazardLayer = "heat" | "wildfire" | "flood" | "combined";
 export type RiskMapCellGeometry =
   | { type: "Point"; coordinates: [number, number] }
   | { type: "Polygon"; coordinates: [Array<[number, number]>] }
@@ -107,6 +107,8 @@ export interface RiskMapCellFeature {
     hazard: string;
     score: number;
     label: string;
+    la_median: number | null;
+    percent_above_median: number | null;
   };
 }
 
@@ -179,6 +181,7 @@ export function mapCellFeatureToPoint(feature: RiskMapCellFeature): RiskMapPoint
     label: feature.properties.label,
     neighborhood: feature.properties.neighborhood,
     tractFips: feature.properties.tract_fips,
+    percentAboveMedian: feature.properties.percent_above_median,
   };
 }
 

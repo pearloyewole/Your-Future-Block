@@ -19,9 +19,11 @@ import {
   type Scenario,
   type Year,
 } from "@/lib/api";
+import { toneFromScore } from "@/lib/riskTone";
 
 const YEARS: Year[] = [2030, 2050, 2080, 2100];
 const HAZARDS: Array<{ id: HazardLayer; label: string }> = [
+  { id: "combined", label: "Combined" },
   { id: "heat", label: "Heat" },
   { id: "wildfire", label: "Wildfire" },
   { id: "flood", label: "Flood" },
@@ -47,7 +49,7 @@ const DEFAULT_SCENARIO: Scenario = "ssp585";
 const SCORE_TONE_VARS = ["--risk-1", "--risk-2", "--risk-3", "--risk-4", "--risk-5"] as const;
 
 export default function Atlas() {
-  const [address, setAddress] = useState("1200 E California Blvd, Pasadena, CA");
+  const [address, setAddress] = useState("");
   const [year, setYear] = useState<Year>(2050);
   const [scenario, setScenario] = useState<Scenario>(DEFAULT_SCENARIO);
   const [hazardLayer, setHazardLayer] = useState<HazardLayer>("heat");
@@ -60,6 +62,7 @@ export default function Atlas() {
   const [geocoded, setGeocoded] = useState<GeocodeResult | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
   const [loading, setLoading] = useState(false);
+  const [focusVersion, setFocusVersion] = useState(0);
   const selectedScenarioMeta = SCENARIOS.find((item) => item.id === scenario) ?? SCENARIOS[2];
 
   useEffect(() => {
@@ -92,6 +95,7 @@ export default function Atlas() {
   }, [year, scenario, hazardLayer]);
 
   useEffect(() => {
+    if (!geocoded) return;
     void analyzeAddress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [year, scenario]);
@@ -111,6 +115,11 @@ export default function Atlas() {
   }, [mapPoints, risk]);
 
   async function analyzeAddress() {
+    if (!address.trim()) {
+      setStatus("Enter an address to analyze.");
+      return;
+    }
+
     setLoading(true);
     setStatus("Analyzing address...");
     try {
@@ -121,6 +130,7 @@ export default function Atlas() {
       });
       setGeocoded(payload.geocoded);
       setRisk(payload.risk);
+      setFocusVersion((v) => v + 1);
       setStatus(`Done. Source: ${payload.geocoded.source}.`);
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Address analysis failed.");
@@ -150,6 +160,7 @@ export default function Atlas() {
         county_fips: null,
         state_fips: null,
       });
+      setFocusVersion((v) => v + 1);
       setStatus(`Selected ${point.neighborhood ?? "map point"}.`);
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Could not load selected block.");
@@ -178,6 +189,7 @@ export default function Atlas() {
               selectedCellId={selectedCellId}
               selectedLat={selectedLat}
               selectedLon={selectedLon}
+              focusVersion={focusVersion}
               onSelectPoint={handleSelectPoint}
             />
           ) : mapView === "interactive" ? (
@@ -186,6 +198,7 @@ export default function Atlas() {
               selectedCellId={selectedCellId}
               selectedLat={selectedLat}
               selectedLon={selectedLon}
+              focusVersion={focusVersion}
               onSelectPoint={handleSelectPoint}
             />
           ) : (
@@ -251,11 +264,6 @@ export default function Atlas() {
           <div className="border-b border-border p-6">
             <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Selected block</p>
             <h2 className="mt-1 font-display text-2xl font-bold">{risk?.neighborhood ?? "No selection"}</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {risk
-                ? `Tract ${risk.tract_fips ?? "unknown"} · Scenario: ${selectedScenarioMeta.title}`
-                : "Analyze an address or click a map point."}
-            </p>
             <p className="mt-3 text-sm text-muted-foreground">
               Screening-level output. Not a house-level prediction.
             </p>
@@ -264,9 +272,74 @@ export default function Atlas() {
           <div className="border-b border-border p-6">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Per-hazard scores</p>
             <div className="space-y-2 text-sm">
-              <ScoreRow icon={<Thermometer className="h-4 w-4" />} label="Heat" value={risk?.scores.heat} />
-              <ScoreRow icon={<Flame className="h-4 w-4" />} label="Wildfire" value={risk?.scores.wildfire} />
-              <ScoreRow icon={<Droplets className="h-4 w-4" />} label="Flood" value={risk?.scores.flood} />
+              <ScoreRow
+                icon={<Thermometer className="h-4 w-4" />}
+                label="Heat"
+                value={risk?.scores.heat}
+              />
+              <ScoreRow
+                icon={<Flame className="h-4 w-4" />}
+                label="Wildfire"
+                value={risk?.scores.wildfire}
+              />
+              <ScoreRow
+                icon={<Droplets className="h-4 w-4" />}
+                label="Flood"
+                value={risk?.scores.flood}
+              />
+            </div>
+          </div>
+
+          <div className="border-b border-border p-6">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Map controls</p>
+            <p className="mb-2 text-xs text-muted-foreground">Hazard layer</p>
+            <div className="grid grid-cols-2 gap-2">
+              {HAZARDS.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setHazardLayer(item.id)}
+                  className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
+                    hazardLayer === item.id
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-secondary/60 hover:border-foreground/40"
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+            <p className="mb-2 mt-4 text-xs text-muted-foreground">Map view</p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setMapView("3d")}
+                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
+                  mapView === "3d"
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-secondary/60 hover:border-foreground/40"
+                }`}
+              >
+                3D
+              </button>
+              <button
+                onClick={() => setMapView("interactive")}
+                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
+                  mapView === "interactive"
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-secondary/60 hover:border-foreground/40"
+                }`}
+              >
+                Interactive
+              </button>
+              <button
+                onClick={() => setMapView("stylized")}
+                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
+                  mapView === "stylized"
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-secondary/60 hover:border-foreground/40"
+                }`}
+              >
+                Stylized
+              </button>
             </div>
           </div>
 
@@ -387,60 +460,29 @@ export default function Atlas() {
             )}
           </div>
 
-          <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Map controls</p>
-            <p className="mb-2 text-xs text-muted-foreground">Hazard layer</p>
-            <div className="grid grid-cols-2 gap-2">
-              {HAZARDS.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setHazardLayer(item.id)}
-                  className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
-                    hazardLayer === item.id
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border bg-secondary/60 hover:border-foreground/40"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-            <p className="mb-2 mt-4 text-xs text-muted-foreground">Map view</p>
-            <div className="grid grid-cols-3 gap-2">
-              <button
-                onClick={() => setMapView("3d")}
-                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
-                  mapView === "3d"
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-secondary/60 hover:border-foreground/40"
-                }`}
-              >
-                3D
-              </button>
-              <button
-                onClick={() => setMapView("interactive")}
-                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
-                  mapView === "interactive"
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-secondary/60 hover:border-foreground/40"
-                }`}
-              >
-                Interactive
-              </button>
-              <button
-                onClick={() => setMapView("stylized")}
-                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
-                  mapView === "stylized"
-                    ? "border-foreground bg-foreground text-background"
-                    : "border-border bg-secondary/60 hover:border-foreground/40"
-                }`}
-              >
-                Stylized
-              </button>
-            </div>
-          </div>
+          
 
           <div className="border-b border-border p-6">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Nearby cells</p>
+            <ul className="space-y-1.5">
+              {nearby.map(({ point, d }) => (
+                <li key={point.cellId}>
+                  <button
+                    onClick={() => void handleSelectPoint(point)}
+                    className="flex w-full items-center justify-between rounded-lg border border-border bg-secondary/40 px-3 py-2 text-left text-sm transition hover:border-foreground/40 hover:bg-secondary"
+                  >
+                    <span className="font-medium">{point.neighborhood ?? point.cellId}</span>
+                    <span className="font-mono text-xs tabular-nums">
+                      {point.score} · {d.toFixed(1)} km
+                    </span>
+                  </button>
+                </li>
+              ))}
+            </ul>
+          
+          </div>
+
+          <div className="p-6">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Emissions scenario</p>
             <div className="space-y-2">
               {SCENARIOS.map((item) => (
@@ -461,28 +503,6 @@ export default function Atlas() {
               ))}
             </div>
           </div>
-
-          <div className="p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Nearby cells</p>
-            <ul className="space-y-1.5">
-              {nearby.map(({ point, d }) => (
-                <li key={point.cellId}>
-                  <button
-                    onClick={() => void handleSelectPoint(point)}
-                    className="flex w-full items-center justify-between rounded-lg border border-border bg-secondary/40 px-3 py-2 text-left text-sm transition hover:border-foreground/40 hover:bg-secondary"
-                  >
-                    <span className="font-medium">{point.neighborhood ?? point.cellId}</span>
-                    <span className="font-mono text-xs tabular-nums">
-                      {point.score} · {d.toFixed(1)} km
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <Button asChild variant="outline" className="mt-4 w-full">
-              <Link to="/">About the project</Link>
-            </Button>
-          </div>
         </aside>
       </main>
     </div>
@@ -499,7 +519,7 @@ function ScoreRow({
   value: { score: number; label: string } | undefined;
 }) {
   const score = value?.score ?? 0;
-  const toneVar = SCORE_TONE_VARS[scoreTone(score) - 1];
+  const toneVar = SCORE_TONE_VARS[toneFromScore(score) - 1];
   const toneColor = `hsl(var(${toneVar}))`;
   const toneBg = `hsl(var(${toneVar}) / 0.16)`;
 
@@ -567,12 +587,4 @@ function formatPercentDelta(value: number | null): string {
   if (value === null) return "N/A";
   if (value === 0) return "At parity";
   return value > 0 ? `${value}% higher` : `${Math.abs(value)}% lower`;
-}
-
-function scoreTone(score: number): 1 | 2 | 3 | 4 | 5 {
-  if (score < 20) return 1;
-  if (score < 40) return 2;
-  if (score < 60) return 3;
-  if (score < 80) return 4;
-  return 5;
 }

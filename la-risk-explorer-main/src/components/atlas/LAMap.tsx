@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { toneForRisk } from "@/lib/riskTone";
 
 export interface RiskMapPoint {
   cellId: string;
@@ -8,6 +9,7 @@ export interface RiskMapPoint {
   label: string;
   neighborhood: string | null;
   tractFips: string | null;
+  percentAboveMedian: number | null;
 }
 
 interface Props {
@@ -36,7 +38,10 @@ export function LAMap({
     () =>
       points.map((point) => {
         const { x, y } = project(point.lon, point.lat);
-        const tone = scoreTone(point.score);
+        const tone = toneForRisk({
+          score: point.score,
+          percentAboveMedian: point.percentAboveMedian,
+        });
         return { point, x, y, tone };
       }),
     [points]
@@ -44,10 +49,19 @@ export function LAMap({
 
   const selectedMarker =
     selectedLat !== null && selectedLon !== null ? project(selectedLon, selectedLat) : null;
+  const viewBox = useMemo(() => {
+    if (!selectedMarker) return "0 0 800 520";
+
+    const zoomWidth = 320;
+    const zoomHeight = 220;
+    const minX = clamp(selectedMarker.x - zoomWidth / 2, 0, 800 - zoomWidth);
+    const minY = clamp(selectedMarker.y - zoomHeight / 2, 0, 520 - zoomHeight);
+    return `${minX} ${minY} ${zoomWidth} ${zoomHeight}`;
+  }, [selectedMarker]);
 
   return (
     <svg
-      viewBox="0 0 800 520"
+      viewBox={viewBox}
       className="h-full w-full"
       role="img"
       aria-label="Stylized Los Angeles map with live climate risk points"
@@ -148,10 +162,6 @@ function project(lon: number, lat: number): { x: number; y: number } {
   return { x, y };
 }
 
-function scoreTone(score: number): 1 | 2 | 3 | 4 | 5 {
-  if (score < 20) return 1;
-  if (score < 40) return 2;
-  if (score < 60) return 3;
-  if (score < 80) return 4;
-  return 5;
+function clamp(value: number, min: number, max: number): number {
+  return Math.max(min, Math.min(max, value));
 }
