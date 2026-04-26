@@ -25,34 +25,40 @@ const weights = JSON.parse(
 
 const geocoder = new CensusGeocoder({ fallbackAddresses, fallbackCities });
 const riskEngine = new RiskEngine({ featureCollection: riskCells, weights });
+const CORS_ORIGIN = process.env.CORS_ORIGIN ?? "*";
 
 const server = createServer(async (req, res) => {
   try {
     if (!req.url || !req.method) {
-      sendJson(res, 400, { error: "Invalid request." });
+      sendJson(res, 400, { error: "Invalid request." }, req);
       return;
     }
 
     const url = new URL(req.url, "http://localhost");
+
+    if (req.method === "OPTIONS") {
+      sendNoContent(res, req);
+      return;
+    }
 
     if (req.method === "GET" && url.pathname === "/api/health") {
       sendJson(res, 200, {
         status: "ok",
         service: "risklens-la-mvp",
         timestamp: new Date().toISOString()
-      });
+      }, req);
       return;
     }
 
     if (req.method === "GET" && url.pathname === "/api/config") {
-      sendJson(res, 200, riskEngine.getConfig());
+      sendJson(res, 200, riskEngine.getConfig(), req);
       return;
     }
 
     if (req.method === "POST" && url.pathname === "/api/geocode") {
       const body = await readJsonBody(req);
       const result = await geocoder.geocodeAddress(body.address);
-      sendJson(res, 200, result);
+      sendJson(res, 200, result, req);
       return;
     }
 
@@ -66,7 +72,7 @@ const server = createServer(async (req, res) => {
         state: body.state ?? "CA",
         propertyType: body.property_type ?? "homeowner"
       });
-      sendJson(res, 200, result);
+      sendJson(res, 200, result, req);
       return;
     }
 
@@ -81,7 +87,7 @@ const server = createServer(async (req, res) => {
         state: mapStateFipsToAbbrev(geocoded.state_fips) ?? body.state ?? "CA",
         propertyType: body.property_type ?? "homeowner"
       });
-      sendJson(res, 200, { geocoded, risk });
+      sendJson(res, 200, { geocoded, risk }, req);
       return;
     }
 
@@ -90,18 +96,18 @@ const server = createServer(async (req, res) => {
       const scenario = url.searchParams.get("scenario") ?? "ssp585";
       const hazard = url.searchParams.get("hazard") ?? "combined";
       const layer = riskEngine.mapCells({ year, scenario, hazard });
-      sendJson(res, 200, layer);
+      sendJson(res, 200, layer, req);
       return;
     }
 
     await serveStatic(req, res, url.pathname);
   } catch (error) {
-    sendJson(res, 400, { error: error.message ?? "Unexpected server error." });
+    sendJson(res, 400, { error: error.message ?? "Unexpected server error." }, req);
   }
 });
 
 const PORT = Number(process.env.PORT ?? 8787);
-const HOST = process.env.HOST ?? "127.0.0.1";
+const HOST = process.env.HOST ?? "0.0.0.0";
 server.listen(PORT, HOST, () => {
   // eslint-disable-next-line no-console
   console.log(`RiskLens LA MVP running on http://${HOST}:${PORT}`);
@@ -122,13 +128,33 @@ async function readJsonBody(req) {
   }
 }
 
-function sendJson(res, statusCode, value) {
+function sendJson(res, statusCode, value, req) {
   const body = JSON.stringify(value, null, 2);
+  const origin = req?.headers?.origin ?? "";
+  const allowOrigin = resolveCorsOrigin(origin);
   res.writeHead(statusCode, {
+    "access-control-allow-origin": allowOrigin,
+    "access-control-allow-methods": "GET,POST,OPTIONS",
+    "access-control-allow-headers": "content-type,authorization",
+    "access-control-max-age": "86400",
+    "vary": "Origin",
     "content-type": "application/json; charset=utf-8",
     "content-length": Buffer.byteLength(body)
   });
   res.end(body);
+}
+
+function sendNoContent(res, req) {
+  const origin = req?.headers?.origin ?? "";
+  const allowOrigin = resolveCorsOrigin(origin);
+  res.writeHead(204, {
+    "access-control-allow-origin": allowOrigin,
+    "access-control-allow-methods": "GET,POST,OPTIONS",
+    "access-control-allow-headers": "content-type,authorization",
+    "access-control-max-age": "86400",
+    "vary": "Origin"
+  });
+  res.end();
 }
 
 async function serveStatic(req, res, pathname) {
@@ -161,4 +187,13 @@ function mapStateFipsToAbbrev(stateFips) {
   if (!stateFips) return null;
   if (String(stateFips) === "06") return "CA";
   return null;
+}
+
+function resolveCorsOrigin(requestOrigin) {
+  if (CORS_ORIGIN === "*") return "*";
+  const allowed = CORS_ORIGIN.split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  if (requestOrigin && allowed.includes(requestOrigin)) return requestOrigin;
+  return allowed[0] ?? "*";
 }

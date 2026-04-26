@@ -1,0 +1,11 @@
+.git
+.github
+.venv
+backend
+la-risk-explorer-main
+node_modules
+npm-debug.log*
+yarn-error.log*
+dist
+coverage
+*.md
