@@ -103,6 +103,7 @@ export default function Atlas() {
   const selectedCellId = risk?.cell_id ?? null;
   const selectedLat = geocoded?.lat ?? risk?.coordinates.lat ?? null;
   const selectedLon = geocoded?.lon ?? risk?.coordinates.lon ?? null;
+  const hasAnalysis = Boolean(risk);
 
   const nearby = useMemo(() => {
     if (!risk) return [];
@@ -211,7 +212,8 @@ export default function Atlas() {
             />
           )}
 
-          <div className="pointer-events-none absolute left-5 top-5 z-[1100] flex flex-col gap-2">
+          {hasAnalysis ? (
+            <div className="pointer-events-none absolute left-5 top-5 z-[1100] flex flex-col gap-2">
             <div className="pointer-events-auto rounded-xl border border-border bg-card/90 px-4 py-3 shadow-soft backdrop-blur">
               <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Projection year</p>
               <div className="grid grid-cols-2 gap-2">
@@ -245,7 +247,8 @@ export default function Atlas() {
               </p>
               <p className="text-[11px] text-muted-foreground">{mapPoints.length.toLocaleString()} points loaded</p>
             </div>
-          </div>
+            </div>
+          ) : null}
 
         </section>
 
@@ -261,6 +264,8 @@ export default function Atlas() {
             <p className="mt-2 text-xs text-muted-foreground">{status}</p>
           </div>
 
+          {hasAnalysis ? (
+            <>
           <div className="border-b border-border p-6">
             <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Selected block</p>
             <h2 className="mt-1 font-display text-2xl font-bold">{risk?.neighborhood ?? "No selection"}</h2>
@@ -270,22 +275,34 @@ export default function Atlas() {
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Per-hazard scores</p>
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Per-hazard scores + LA comparison</p>
             <div className="space-y-2 text-sm">
               <ScoreRow
                 icon={<Thermometer className="h-4 w-4" />}
                 label="Heat"
                 value={risk?.scores.heat}
+                median={risk?.comparison.heat.la_median}
+                benchmark={risk?.comparison.heat.lowest_risk_benchmark}
+                percentile={risk?.comparison.heat.percentile}
+                percentAboveMedian={risk?.comparison.heat.percent_above_median}
               />
               <ScoreRow
                 icon={<Flame className="h-4 w-4" />}
                 label="Wildfire"
                 value={risk?.scores.wildfire}
+                median={risk?.comparison.wildfire.la_median}
+                benchmark={risk?.comparison.wildfire.lowest_risk_benchmark}
+                percentile={risk?.comparison.wildfire.percentile}
+                percentAboveMedian={risk?.comparison.wildfire.percent_above_median}
               />
               <ScoreRow
                 icon={<Droplets className="h-4 w-4" />}
                 label="Flood"
                 value={risk?.scores.flood}
+                median={risk?.comparison.flood.la_median}
+                benchmark={risk?.comparison.flood.lowest_risk_benchmark}
+                percentile={risk?.comparison.flood.percentile}
+                percentAboveMedian={risk?.comparison.flood.percent_above_median}
               />
             </div>
           </div>
@@ -425,44 +442,6 @@ export default function Atlas() {
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">How This Block Compares</p>
-            {risk ? (
-              <div className="space-y-2">
-                <ComparisonRow
-                  label="Heat"
-                  score={risk.scores.heat.score}
-                  median={risk.comparison.heat.la_median}
-                  benchmark={risk.comparison.heat.lowest_risk_benchmark}
-                  percentile={risk.comparison.heat.percentile}
-                  percentAboveMedian={risk.comparison.heat.percent_above_median}
-                />
-                <ComparisonRow
-                  label="Wildfire"
-                  score={risk.scores.wildfire.score}
-                  median={risk.comparison.wildfire.la_median}
-                  benchmark={risk.comparison.wildfire.lowest_risk_benchmark}
-                  percentile={risk.comparison.wildfire.percentile}
-                  percentAboveMedian={risk.comparison.wildfire.percent_above_median}
-                />
-                <ComparisonRow
-                  label="Flood"
-                  score={risk.scores.flood.score}
-                  median={risk.comparison.flood.la_median}
-                  benchmark={risk.comparison.flood.lowest_risk_benchmark}
-                  percentile={risk.comparison.flood.percentile}
-                  percentAboveMedian={risk.comparison.flood.percent_above_median}
-                />
-              </div>
-            ) : (
-              <p className="text-sm text-muted-foreground">
-                Analyze an address to see percentile ranking and baseline comparison.
-              </p>
-            )}
-          </div>
-
-          
-
-          <div className="border-b border-border p-6">
             <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Nearby cells</p>
             <ul className="space-y-1.5">
               {nearby.map(({ point, d }) => (
@@ -503,6 +482,14 @@ export default function Atlas() {
               ))}
             </div>
           </div>
+            </>
+          ) : (
+            <div className="p-6">
+              <p className="text-sm text-muted-foreground">
+                Enter an address above to unlock risk scores, map controls, neighborhood comparison, and community guidance.
+              </p>
+            </div>
+          )}
         </aside>
       </main>
     </div>
@@ -513,10 +500,18 @@ function ScoreRow({
   icon,
   label,
   value,
+  median,
+  benchmark,
+  percentile,
+  percentAboveMedian,
 }: {
   icon: ReactNode;
   label: string;
   value: { score: number; label: string } | undefined;
+  median?: number;
+  benchmark?: number;
+  percentile?: number;
+  percentAboveMedian?: number | null;
 }) {
   const score = value?.score ?? 0;
   const toneVar = SCORE_TONE_VARS[toneFromScore(score) - 1];
@@ -525,49 +520,31 @@ function ScoreRow({
 
   return (
     <div
-      className="flex items-center justify-between rounded-lg border px-3 py-2"
+      className="rounded-lg border px-3 py-2"
       style={{
         borderColor: `hsl(var(${toneVar}) / 0.35)`,
         backgroundColor: `hsl(var(${toneVar}) / 0.08)`
       }}
     >
-      <div className="flex items-center gap-2">
-        <span style={{ color: toneColor }}>{icon}</span>
-        <span className="font-semibold">{label}</span>
+      <div className="flex items-center justify-between gap-3">
+        <div className="flex items-center gap-2">
+          <span style={{ color: toneColor }}>{icon}</span>
+          <span className="font-semibold">{label}</span>
+        </div>
+        <span
+          className="rounded px-2 py-1 font-mono text-xs"
+          style={{ color: toneColor, backgroundColor: toneBg }}
+        >
+          {value ? `${Math.round(value.score)} (${value.label})` : "--"}
+        </span>
       </div>
-      <span
-        className="rounded px-2 py-1 font-mono text-xs"
-        style={{ color: toneColor, backgroundColor: toneBg }}
-      >
-        {value ? `${Math.round(value.score)} (${value.label})` : "--"}
-      </span>
-    </div>
-  );
-}
-
-function ComparisonRow({
-  label,
-  score,
-  median,
-  benchmark,
-  percentile,
-  percentAboveMedian,
-}: {
-  label: string;
-  score: number;
-  median: number;
-  benchmark: number;
-  percentile: number;
-  percentAboveMedian: number | null;
-}) {
-  return (
-    <div className="rounded-lg border border-border bg-secondary/30 px-3 py-2 text-sm">
-      <p className="font-semibold">
-        {label}: {Math.round(score)} / 100
-      </p>
-      <p className="text-muted-foreground">
-        {formatPercentDelta(percentAboveMedian)} vs LA median ({Math.round(median)}), percentile {percentile}, benchmark {Math.round(benchmark)}.
-      </p>
+      {typeof median === "number" &&
+      typeof benchmark === "number" &&
+      typeof percentile === "number" ? (
+        <p className="mt-2 text-xs text-muted-foreground">
+          {formatPercentDelta(percentAboveMedian ?? null)} vs LA median ({Math.round(median)}), percentile {percentile}, benchmark {Math.round(benchmark)}.
+        </p>
+      ) : null}
     </div>
   );
 }

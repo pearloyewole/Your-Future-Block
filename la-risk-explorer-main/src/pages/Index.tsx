@@ -160,6 +160,11 @@ const Index = () => {
           <p className="mx-auto mt-10 max-w-4xl font-display text-4xl leading-tight md:text-6xl">
             <em className="italic">"Climate change</em> <Underline>doesn't affect me…"</Underline>
           </p>
+           <p className="mx-auto mt-16 max-w-2xl font-mono text-xs leading-relaxed text-muted-foreground">
+             Nature Sustainability meta-analysis found that across 60 datasets, 70,337 participants, and 17 countries, people rated their own climate-related risk lower than the risk faced by others in 81 of 83 datasets. The paper calls this a “self–other discrepancy,” meaning people systematically believe climate impacts are more likely to happen to someone else.
+          </p>
+
+          
 
           <div className="mx-auto mt-16 grid max-w-5xl gap-10 border-t border-border pt-10 md:grid-cols-3">
             {[
