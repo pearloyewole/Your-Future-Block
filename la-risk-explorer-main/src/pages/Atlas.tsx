@@ -41,7 +41,7 @@ const SCENARIOS: Array<{ id: Scenario; title: string; description: string }> = [
   },
   {
     id: "ssp585",
-    title: "Very high warming (risk-sensitive default)",
+    title: "Very high warming",
     description: "Most severe warming path used to stress-test future risk."
   }
 ];
@@ -139,7 +139,7 @@ export default function Atlas() {
       setRisk(payload.risk);
       setSelectedCellId(normalizeCellId(payload.risk.cell_id));
       setFocusVersion((v) => v + 1);
-      setStatus(`Done. Source: ${payload.geocoded.source}.`);
+      setStatus("Done.");
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Address analysis failed.");
     } finally {

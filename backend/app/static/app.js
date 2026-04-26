@@ -112,7 +112,7 @@ async function runAnalysis() {
     selectedCellId = data.risk.cell_id ?? null;
     renderResult(data);
     await refreshMapCells(selectedCellId);
-    setStatus(`Done. Source: ${data.geocoded.source}.`);
+    setStatus("Done.");
   } catch (error) {
     setStatus(error.message || "Could not run analysis.");
   }
