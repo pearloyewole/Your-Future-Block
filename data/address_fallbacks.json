@@ -1,0 +1,37 @@
+[
+  {
+    "address": "200 N Spring St, Los Angeles, CA",
+    "lat": 34.0537,
+    "lon": -118.2428,
+    "tract_fips": "06037207400",
+    "display_name": "200 N Spring St, Los Angeles, CA 90012"
+  },
+  {
+    "address": "531 N Rossmore Ave, Los Angeles, CA",
+    "lat": 34.0818,
+    "lon": -118.3277,
+    "tract_fips": "06037191200",
+    "display_name": "531 N Rossmore Ave, Los Angeles, CA 90004"
+  },
+  {
+    "address": "1848 E 1st St, Los Angeles, CA",
+    "lat": 34.0414,
+    "lon": -118.2192,
+    "tract_fips": "06037206020",
+    "display_name": "1848 E 1st St, Los Angeles, CA 90033"
+  },
+  {
+    "address": "1 Windward Ave, Venice, CA",
+    "lat": 33.985,
+    "lon": -118.4695,
+    "tract_fips": "06037273100",
+    "display_name": "1 Windward Ave, Venice, CA 90291"
+  },
+  {
+    "address": "250 E 1st St, Long Beach, CA",
+    "lat": 33.7687,
+    "lon": -118.1895,
+    "tract_fips": "06037576001",
+    "display_name": "250 E 1st St, Long Beach, CA 90802"
+  }
+]

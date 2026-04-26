@@ -7,6 +7,7 @@ either DuckDB (hackathon-friendly) or Postgres+PostGIS (production-friendly).
 from __future__ import annotations
 
 import logging
+import os
 import threading
 from contextlib import contextmanager
 from pathlib import Path
@@ -104,13 +105,21 @@ class DuckDBDatabase(Database):
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self._local = threading.local()
         self._read_only = False
+        self._duckdb_home = Path(
+            os.environ.get("RISKLENS_DUCKDB_HOME", REPO_ROOT / "backend/data/.duckdb")
+        )
+        self._duckdb_home.mkdir(parents=True, exist_ok=True)
 
     @contextmanager
     def conn(self) -> Iterator[Any]:
         import duckdb
 
         if not hasattr(self._local, "c"):
-            self._local.c = duckdb.connect(str(self.path), read_only=self._read_only)
+            self._local.c = duckdb.connect(
+                str(self.path),
+                read_only=self._read_only,
+                config={"home_directory": str(self._duckdb_home)},
+            )
             self._local.c.execute("INSTALL spatial; LOAD spatial;")
         yield self._local.c
 

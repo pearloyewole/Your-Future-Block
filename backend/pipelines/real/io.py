@@ -26,6 +26,14 @@ from tqdm import tqdm
 
 from pipelines.real.config import DUCKDB_PATH, PROCESSED_DIR, RAW_DIR, SCHEMA_PATH
 
+DUCKDB_HOME = Path(
+    os.environ.get(
+        "RISKLENS_DUCKDB_HOME",
+        Path(__file__).resolve().parents[2] / "data/.duckdb",
+    )
+)
+DUCKDB_HOME.mkdir(parents=True, exist_ok=True)
+
 # ---------------------------------------------------------------------------
 # Logging (lightweight, no external deps)
 # ---------------------------------------------------------------------------
@@ -208,7 +216,11 @@ def attach_polygon_attrs_to_cells(
 @contextmanager
 def duckdb_conn(read_only: bool = False):
     """Yield a DuckDB connection with the spatial extension loaded."""
-    con = duckdb.connect(str(DUCKDB_PATH), read_only=read_only)
+    con = duckdb.connect(
+        str(DUCKDB_PATH),
+        read_only=read_only,
+        config={"home_directory": str(DUCKDB_HOME)},
+    )
     con.execute("INSTALL spatial; LOAD spatial;")
     try:
         yield con

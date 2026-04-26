@@ -20,10 +20,9 @@ class Settings(BaseSettings):
     # backend selection
     risklens_db_backend: Literal["duckdb", "postgres"] = "duckdb"
 
-    # duckdb -- which build the API serves. Defaults to synthetic so the
-    # server boots even if the real pipeline hasn't run yet. Override with
-    # DUCKDB_PATH=backend/data/processed/risklens.real.duckdb to serve real.
-    duckdb_path: Path = REPO_ROOT / "backend/data/processed/risklens.synthetic.duckdb"
+    # duckdb -- which build the API serves. This branch defaults to real-data
+    # output. Override with DUCKDB_PATH=...synthetic.duckdb for offline demos.
+    duckdb_path: Path = REPO_ROOT / "backend/data/processed/risklens.real.duckdb"
 
     # postgres
     database_url: str = "postgresql+psycopg://risklens:risklens@localhost:5432/risklens"

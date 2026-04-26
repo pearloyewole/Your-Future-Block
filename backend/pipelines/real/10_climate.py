@@ -88,7 +88,7 @@ def _open_nex_var(model: str, scenario: str, var: str, years: list[int]) -> xr.D
     for p in paths:
         try:
             with fs.open(p) as fh:
-                ds = xr.open_dataset(fh, engine="h5netcdf")
+                ds = _open_dataset_with_fallbacks(fh)
                 # NEX-GDDP uses 0-360 longitudes; normalize before slicing.
                 if float(ds.lon.min()) >= 0:
                     ds = ds.assign_coords(
@@ -105,6 +105,23 @@ def _open_nex_var(model: str, scenario: str, var: str, years: list[int]) -> xr.D
     if not ds_list:
         raise RuntimeError(f"No NEX-GDDP files found for {model}/{scenario}/{var}")
     return xr.concat(ds_list, dim="time")
+
+
+def _open_dataset_with_fallbacks(fh) -> xr.Dataset:
+    """Try multiple xarray engines because environment packaging can vary."""
+    errors: list[str] = []
+    for engine in ("h5netcdf", "netcdf4", None):
+        try:
+            if engine is None:
+                return xr.open_dataset(fh)
+            return xr.open_dataset(fh, engine=engine)
+        except Exception as e:
+            errors.append(f"{engine or 'auto'}={e!r}")
+            try:
+                fh.seek(0)
+            except Exception:
+                pass
+    raise RuntimeError("could not open NetCDF with available engines: " + "; ".join(errors))
 
 
 def _compute_metrics(tasmax: xr.DataArray | None,

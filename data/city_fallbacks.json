@@ -1,0 +1,182 @@
+[
+  {
+    "city": "Los Angeles",
+    "state": "CA",
+    "lat": 34.0522,
+    "lon": -118.2437,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Los Angeles, CA (city centroid fallback)"
+  },
+  {
+    "city": "Pasadena",
+    "state": "CA",
+    "lat": 34.1478,
+    "lon": -118.1445,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Pasadena, CA (city centroid fallback)"
+  },
+  {
+    "city": "Glendale",
+    "state": "CA",
+    "lat": 34.1425,
+    "lon": -118.2551,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Glendale, CA (city centroid fallback)"
+  },
+  {
+    "city": "Burbank",
+    "state": "CA",
+    "lat": 34.1808,
+    "lon": -118.3090,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Burbank, CA (city centroid fallback)"
+  },
+  {
+    "city": "Santa Monica",
+    "state": "CA",
+    "lat": 34.0195,
+    "lon": -118.4912,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Santa Monica, CA (city centroid fallback)"
+  },
+  {
+    "city": "Long Beach",
+    "state": "CA",
+    "lat": 33.7701,
+    "lon": -118.1937,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Long Beach, CA (city centroid fallback)"
+  },
+  {
+    "city": "Inglewood",
+    "state": "CA",
+    "lat": 33.9617,
+    "lon": -118.3531,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Inglewood, CA (city centroid fallback)"
+  },
+  {
+    "city": "Compton",
+    "state": "CA",
+    "lat": 33.8958,
+    "lon": -118.2201,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Compton, CA (city centroid fallback)"
+  },
+  {
+    "city": "Carson",
+    "state": "CA",
+    "lat": 33.8317,
+    "lon": -118.2817,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Carson, CA (city centroid fallback)"
+  },
+  {
+    "city": "Torrance",
+    "state": "CA",
+    "lat": 33.8358,
+    "lon": -118.3406,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Torrance, CA (city centroid fallback)"
+  },
+  {
+    "city": "Pomona",
+    "state": "CA",
+    "lat": 34.0553,
+    "lon": -117.7523,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Pomona, CA (city centroid fallback)"
+  },
+  {
+    "city": "Whittier",
+    "state": "CA",
+    "lat": 33.9792,
+    "lon": -118.0328,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Whittier, CA (city centroid fallback)"
+  },
+  {
+    "city": "Lancaster",
+    "state": "CA",
+    "lat": 34.6868,
+    "lon": -118.1542,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Lancaster, CA (city centroid fallback)"
+  },
+  {
+    "city": "Palmdale",
+    "state": "CA",
+    "lat": 34.5794,
+    "lon": -118.1165,
+    "county_fips": "037",
+    "state_fips": "06",
+    "display_name": "Palmdale, CA (city centroid fallback)"
+  },
+  {
+    "city": "Anaheim",
+    "state": "CA",
+    "lat": 33.8366,
+    "lon": -117.9143,
+    "county_fips": "059",
+    "state_fips": "06",
+    "display_name": "Anaheim, CA (city centroid fallback)"
+  },
+  {
+    "city": "Irvine",
+    "state": "CA",
+    "lat": 33.6846,
+    "lon": -117.8265,
+    "county_fips": "059",
+    "state_fips": "06",
+    "display_name": "Irvine, CA (city centroid fallback)"
+  },
+  {
+    "city": "Riverside",
+    "state": "CA",
+    "lat": 33.9533,
+    "lon": -117.3961,
+    "county_fips": "065",
+    "state_fips": "06",
+    "display_name": "Riverside, CA (city centroid fallback)"
+  },
+  {
+    "city": "San Bernardino",
+    "state": "CA",
+    "lat": 34.1083,
+    "lon": -117.2898,
+    "county_fips": "071",
+    "state_fips": "06",
+    "display_name": "San Bernardino, CA (city centroid fallback)"
+  },
+  {
+    "city": "San Diego",
+    "state": "CA",
+    "lat": 32.7157,
+    "lon": -117.1611,
+    "county_fips": "073",
+    "state_fips": "06",
+    "display_name": "San Diego, CA (city centroid fallback)"
+  },
+  {
+    "city": "San Francisco",
+    "state": "CA",
+    "lat": 37.7749,
+    "lon": -122.4194,
+    "county_fips": "075",
+    "state_fips": "06",
+    "display_name": "San Francisco, CA (city centroid fallback)"
+  }
+]

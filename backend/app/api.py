@@ -17,15 +17,19 @@ from __future__ import annotations
 
 import json
 import logging
+from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
-from .routers import cells, lookup, meta, scenarios
+from .routers import cells, compat, lookup, meta, scenarios
 from .settings import settings
 
 logging.basicConfig(level=settings.log_level, format="[%(name)s] %(message)s")
 log = logging.getLogger("risklens.api")
+STATIC_DIR = Path(__file__).resolve().parent / "static"
 
 app = FastAPI(
     title="RiskLens API",
@@ -49,6 +53,17 @@ app.include_router(meta.router)
 app.include_router(scenarios.router)
 app.include_router(lookup.router)
 app.include_router(cells.router)
+app.include_router(compat.router)
+
+if STATIC_DIR.exists():
+    app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
+
+
+@app.get("/", include_in_schema=False)
+def root() -> FileResponse:
+    if not STATIC_DIR.exists():
+        raise RuntimeError("Missing static UI directory at backend/app/static")
+    return FileResponse(STATIC_DIR / "index.html")
 
 
 @app.on_event("startup")

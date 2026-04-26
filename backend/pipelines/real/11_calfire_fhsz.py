@@ -33,10 +33,11 @@ from pipelines.real.config import LA_BBOX, RAW_DIR
 
 ensure_path_setup()
 
-# Try this first; fall back to manual placement if it 404s (URLs drift).
+# Try these first; fall back to manual placement if URLs drift again.
+# These are current OSFM CDN artifacts (verified April 2026).
 FHSZ_URLS = [
-    "https://osfm.fire.ca.gov/media/k0bnpgam/fhszsra22_1.zip",
-    "https://osfm.fire.ca.gov/media/cppffuzd/fhszlra24_1.zip",
+    "https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/osfm-website/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones/fhszsra_23_3.zip?hash=87816F8F0635FFA1D7B99A723DE38A70&rev=f5118b1ba17044a8aa3cd2994f00d6d3",
+    "https://34c031f8-c9fd-4018-8c5a-4159cdff6b0d-cdn-endpoint.azureedge.net/-/media/osfm-website/what-we-do/community-wildfire-preparedness-and-mitigation/fire-hazard-severity-zones/fhszlra251allgdb.zip?hash=4FE6C7291E09FC36126F91318C6CCB88&rev=c273e91031b6401b99937894df5f1266",
 ]
 
 # Order matters: max-class join uses this ranking.

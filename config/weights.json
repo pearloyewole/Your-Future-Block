@@ -1,0 +1,42 @@
+{
+  "hazardSpecific": {
+    "heat": {
+      "futureExposure": 0.6,
+      "localAmplifier": 0.25,
+      "socialVulnerability": 0.15
+    },
+    "wildfire": {
+      "baseline": 0.55,
+      "futureStress": 0.25,
+      "terrain": 0.1,
+      "socialVulnerability": 0.1
+    },
+    "flood": {
+      "coastalOrInland": 0.6,
+      "localPhysical": 0.25,
+      "socialVulnerability": 0.15
+    }
+  },
+  "overall": {
+    "heat": 0.4,
+    "wildfire": 0.3,
+    "flood": 0.3
+  },
+  "yearWindows": {
+    "2030": "2021-2040",
+    "2050": "2041-2060",
+    "2080": "2071-2090",
+    "2100": "2081-2100"
+  },
+  "scenarioAliases": {
+    "moderate": "ssp245",
+    "high": "ssp370",
+    "veryhigh": "ssp585",
+    "ssp245": "ssp245",
+    "ssp370": "ssp370",
+    "ssp585": "ssp585",
+    "ssp2-4.5": "ssp245",
+    "ssp3-7.0": "ssp370",
+    "ssp5-8.5": "ssp585"
+  }
+}

@@ -28,9 +28,8 @@ from pipelines.real.config import LA_BBOX, RAW_DIR
 ensure_path_setup()
 
 WUI_URLS = [
-    # data.ca.gov resource (URL has historically rotated)
-    "https://data.ca.gov/dataset/wildland-urban-interface/resource/"
-    "/download/wildlandurbaninterface.zip",
+    # CA Open Data ArcGIS download endpoint (redirects to current artifact).
+    "https://gis.data.cnra.ca.gov/api/download/v1/items/ab3148666b084efcbe3bec0bf6af7441/shapefile?layers=0",
 ]
 
 WUI_CLASS_ORDER = ["Interface", "Intermix", "None"]

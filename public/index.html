@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RiskLens LA MVP</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+  </head>
+  <body>
+    <header class="hero">
+      <p class="eyebrow">RiskLens LA</p>
+      <h1>Block-Level Climate Exposure Visualizer</h1>
+      <p class="subtitle">
+        Combines downscaled climate projections, hazard layers, and local
+        vulnerability indicators.
+      </p>
+      <p class="disclaimer">
+        Not an exact prediction for a specific house. This is a screening-level
+        planning tool.
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="controls card">
+        <label for="address">Address (Los Angeles County)</label>
+        <input
+          id="address"
+          type="text"
+          placeholder="200 N Spring St, Los Angeles, CA"
+          value="200 N Spring St, Los Angeles, CA"
+        />
+
+        <div class="row">
+          <div>
+            <label for="year-slider">Year</label>
+            <input id="year-slider" type="range" min="0" max="3" step="1" value="1" />
+            <div id="year-label" class="value-label">2050 (2041-2060)</div>
+          </div>
+          <div>
+            <label for="scenario">Scenario</label>
+            <select id="scenario">
+              <option value="ssp245">Moderate (SSP2-4.5)</option>
+              <option value="ssp370" selected>High (SSP3-7.0)</option>
+              <option value="ssp585">Very High (SSP5-8.5)</option>
+            </select>
+          </div>
+          <div>
+            <label for="hazard">Map Layer</label>
+            <select id="hazard">
+              <option value="combined" selected>Combined</option>
+              <option value="heat">Heat</option>
+              <option value="wildfire">Wildfire</option>
+              <option value="flood">Flood</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="run-btn" type="button">Analyze Address</button>
+        <p id="status" class="status"></p>
+      </section>
+
+      <section class="map-panel card">
+        <div id="map"></div>
+      </section>
+
+      <section class="cards">
+        <article class="card metric">
+          <h3>Heat Risk</h3>
+          <p id="heat-score" class="score">--</p>
+        </article>
+        <article class="card metric">
+          <h3>Wildfire Risk</h3>
+          <p id="wildfire-score" class="score">--</p>
+        </article>
+        <article class="card metric">
+          <h3>Flood Risk</h3>
+          <p id="flood-score" class="score">--</p>
+        </article>
+        <article class="card metric overall">
+          <h3>Overall Climate Exposure</h3>
+          <p id="overall-score" class="score">--</p>
+        </article>
+      </section>
+
+      <section class="card details">
+        <h3>Result</h3>
+        <p id="meta-line">Enter an address to begin.</p>
+        <p id="explanation"></p>
+      </section>
+    </main>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>

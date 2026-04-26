@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import subprocess
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -23,6 +24,10 @@ from .scoring import SCHEMA_PATH
 
 log = logging.getLogger("risklens.shared.duckdb")
 logging.basicConfig(level=logging.INFO, format="[%(name)s] %(message)s")
+DEFAULT_DUCKDB_HOME = Path(
+    os.environ.get("RISKLENS_DUCKDB_HOME", SCHEMA_PATH.parent.parent / "data/.duckdb")
+)
+DEFAULT_DUCKDB_HOME.mkdir(parents=True, exist_ok=True)
 
 
 def _split_schema_statements(sql: str) -> list[str]:
@@ -57,7 +62,11 @@ def _adapt_for_duckdb(stmt: str) -> str | None:
 def duckdb_conn(db_path: Path, read_only: bool = False) -> Iterator[duckdb.DuckDBPyConnection]:
     db_path = Path(db_path)
     db_path.parent.mkdir(parents=True, exist_ok=True)
-    con = duckdb.connect(str(db_path), read_only=read_only)
+    con = duckdb.connect(
+        str(db_path),
+        read_only=read_only,
+        config={"home_directory": str(DEFAULT_DUCKDB_HOME)},
+    )
     con.execute("INSTALL spatial; LOAD spatial;")
     try:
         yield con

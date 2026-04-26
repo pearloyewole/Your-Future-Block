@@ -1,0 +1,14 @@
+{
+  "name": "risklens-la-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "LA climate exposure MVP with Census geocoding, transparent scoring, and map UI.",
+  "scripts": {
+    "start": "node src/server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

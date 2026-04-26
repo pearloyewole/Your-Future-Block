@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Your Future Block — warm sand + deep ink, climate accents */
+    /* cream paper */
+    --background: 42 38% 94%;
+    --foreground: 30 10% 10%;
+
+    --card: 42 38% 96%;
+    --card-foreground: 30 10% 10%;
+
+    --popover: 42 38% 96%;
+    --popover-foreground: 30 10% 10%;
+
+    --primary: 30 10% 10%;
+    --primary-foreground: 42 38% 94%;
+
+    --secondary: 38 25% 88%;
+    --secondary-foreground: 30 10% 10%;
+
+    --muted: 38 22% 90%;
+    --muted-foreground: 30 8% 38%;
+
+    /* signature red-orange */
+    --accent: 12 75% 52%;
+    --accent-foreground: 42 38% 96%;
+
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 42 38% 96%;
+
+    --border: 35 18% 80%;
+    --input: 35 18% 80%;
+    --ring: 12 75% 52%;
+
+    --radius: 0.75rem;
+
+    /* Hazard layer hues */
+    --heat: 22 90% 55%;
+    --fire: 358 78% 52%;
+    --flood: 205 75% 42%;
+
+    /* peach marker highlight */
+    --highlight: 14 75% 85%;
+
+    /* Risk severity ramp (low → extreme) */
+    --risk-1: 200 65% 55%;
+    --risk-2: 145 55% 48%;
+    --risk-3: 50 90% 55%;
+    --risk-4: 22 90% 55%;
+    --risk-5: 358 78% 48%;
+
+    /* Map surfaces */
+    --map-land: 40 35% 90%;
+    --map-land-2: 38 28% 84%;
+    --map-water: 200 50% 78%;
+    --map-river: 200 55% 55%;
+    --map-stroke: 30 15% 22%;
+
+    --gradient-hero: linear-gradient(135deg, hsl(30 10% 10%), hsl(12 75% 52%));
+    --gradient-risk: linear-gradient(90deg, hsl(var(--risk-1)), hsl(var(--risk-2)), hsl(var(--risk-3)), hsl(var(--risk-4)), hsl(var(--risk-5)));
+    --shadow-panel: 0 20px 40px -20px hsl(30 15% 12% / 0.25);
+    --shadow-soft: 0 6px 20px -10px hsl(30 15% 12% / 0.16);
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 45% 8%;
+    --foreground: 40 30% 95%;
+    --card: 215 40% 11%;
+    --card-foreground: 40 30% 95%;
+    --popover: 215 40% 11%;
+    --popover-foreground: 40 30% 95%;
+    --primary: 28 90% 55%;
+    --primary-foreground: 215 55% 10%;
+    --secondary: 215 30% 18%;
+    --secondary-foreground: 40 30% 95%;
+    --muted: 215 30% 16%;
+    --muted-foreground: 40 15% 65%;
+    --accent: 28 90% 55%;
+    --accent-foreground: 215 55% 10%;
+    --destructive: 0 70% 45%;
+    --destructive-foreground: 40 30% 95%;
+    --border: 215 25% 22%;
+    --input: 215 25% 22%;
+    --ring: 28 90% 55%;
+    --map-land: 215 30% 18%;
+    --map-land-2: 215 28% 22%;
+    --map-water: 205 50% 22%;
+    --map-river: 205 60% 40%;
+    --map-stroke: 40 20% 70%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

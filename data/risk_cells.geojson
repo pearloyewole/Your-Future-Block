@@ -1,0 +1,4329 @@
+{
+  "type": "FeatureCollection",
+  "name": "risk_cells_la_expanded",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-001",
+        "tract_fips": "06037207400",
+        "neighborhood": "Downtown LA",
+        "tree_canopy_pct": 7,
+        "impervious_pct": 77,
+        "building_density_idx": 81,
+        "slope_idx": 11,
+        "drainage_stress_idx": 66,
+        "resilience_idx": 43,
+        "social_vulnerability": 79,
+        "wildfire_baseline": 11,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 62,
+            "ssp370": 68,
+            "ssp585": 72
+          },
+          "2050": {
+            "ssp245": 70,
+            "ssp370": 77,
+            "ssp585": 82
+          },
+          "2080": {
+            "ssp245": 76,
+            "ssp370": 84,
+            "ssp585": 91
+          },
+          "2100": {
+            "ssp245": 80,
+            "ssp370": 89,
+            "ssp585": 96
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 20,
+            "ssp370": 24,
+            "ssp585": 27
+          },
+          "2050": {
+            "ssp245": 24,
+            "ssp370": 30,
+            "ssp585": 34
+          },
+          "2080": {
+            "ssp245": 28,
+            "ssp370": 36,
+            "ssp585": 42
+          },
+          "2100": {
+            "ssp245": 31,
+            "ssp370": 40,
+            "ssp585": 47
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 6,
+            "ssp370": 11,
+            "ssp585": 17
+          },
+          "2050": {
+            "ssp245": 10,
+            "ssp370": 18,
+            "ssp585": 26
+          },
+          "2080": {
+            "ssp245": 15,
+            "ssp370": 26,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 19,
+            "ssp370": 34,
+            "ssp585": 47
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 34,
+            "ssp370": 39,
+            "ssp585": 44
+          },
+          "2050": {
+            "ssp245": 38,
+            "ssp370": 45,
+            "ssp585": 51
+          },
+          "2080": {
+            "ssp245": 42,
+            "ssp370": 51,
+            "ssp585": 59
+          },
+          "2100": {
+            "ssp245": 45,
+            "ssp370": 56,
+            "ssp585": 66
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.2675,
+              34.0325
+            ],
+            [
+              -118.2225,
+              34.0325
+            ],
+            [
+              -118.2225,
+              34.0675
+            ],
+            [
+              -118.2675,
+              34.0675
+            ],
+            [
+              -118.2675,
+              34.0325
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-002",
+        "tract_fips": "06037206020",
+        "neighborhood": "Boyle Heights",
+        "tree_canopy_pct": 8,
+        "impervious_pct": 78,
+        "building_density_idx": 84,
+        "slope_idx": 13,
+        "drainage_stress_idx": 68,
+        "resilience_idx": 45,
+        "social_vulnerability": 67,
+        "wildfire_baseline": 13,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 63,
+            "ssp370": 69,
+            "ssp585": 73
+          },
+          "2050": {
+            "ssp245": 71,
+            "ssp370": 78,
+            "ssp585": 83
+          },
+          "2080": {
+            "ssp245": 77,
+            "ssp370": 85,
+            "ssp585": 92
+          },
+          "2100": {
+            "ssp245": 81,
+            "ssp370": 90,
+            "ssp585": 97
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 21,
+            "ssp370": 25,
+            "ssp585": 28
+          },
+          "2050": {
+            "ssp245": 25,
+            "ssp370": 31,
+            "ssp585": 35
+          },
+          "2080": {
+            "ssp245": 29,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 48
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 7,
+            "ssp370": 12,
+            "ssp585": 18
+          },
+          "2050": {
+            "ssp245": 11,
+            "ssp370": 19,
+            "ssp585": 27
+          },
+          "2080": {
+            "ssp245": 16,
+            "ssp370": 27,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 20,
+            "ssp370": 35,
+            "ssp585": 48
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 36,
+            "ssp370": 41,
+            "ssp585": 46
+          },
+          "2050": {
+            "ssp245": 40,
+            "ssp370": 47,
+            "ssp585": 53
+          },
+          "2080": {
+            "ssp245": 44,
+            "ssp370": 53,
+            "ssp585": 61
+          },
+          "2100": {
+            "ssp245": 47,
+            "ssp370": 58,
+            "ssp585": 68
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.226,
+              34.018
+            ],
+            [
+              -118.184,
+              34.018
+            ],
+            [
+              -118.184,
+              34.052
+            ],
+            [
+              -118.226,
+              34.052
+            ],
+            [
+              -118.226,
+              34.018
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-003",
+        "tract_fips": "06037211500",
+        "neighborhood": "Koreatown",
+        "tree_canopy_pct": 9,
+        "impervious_pct": 80,
+        "building_density_idx": 86,
+        "slope_idx": 14,
+        "drainage_stress_idx": 70,
+        "resilience_idx": 35,
+        "social_vulnerability": 69,
+        "wildfire_baseline": 14,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 64,
+            "ssp370": 70,
+            "ssp585": 74
+          },
+          "2050": {
+            "ssp245": 72,
+            "ssp370": 79,
+            "ssp585": 84
+          },
+          "2080": {
+            "ssp245": 78,
+            "ssp370": 86,
+            "ssp585": 93
+          },
+          "2100": {
+            "ssp245": 82,
+            "ssp370": 91,
+            "ssp585": 98
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 23,
+            "ssp370": 27,
+            "ssp585": 30
+          },
+          "2050": {
+            "ssp245": 27,
+            "ssp370": 33,
+            "ssp585": 37
+          },
+          "2080": {
+            "ssp245": 31,
+            "ssp370": 39,
+            "ssp585": 45
+          },
+          "2100": {
+            "ssp245": 34,
+            "ssp370": 43,
+            "ssp585": 50
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 8,
+            "ssp370": 13,
+            "ssp585": 19
+          },
+          "2050": {
+            "ssp245": 12,
+            "ssp370": 20,
+            "ssp585": 28
+          },
+          "2080": {
+            "ssp245": 17,
+            "ssp370": 28,
+            "ssp585": 41
+          },
+          "2100": {
+            "ssp245": 21,
+            "ssp370": 36,
+            "ssp585": 49
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 38,
+            "ssp370": 43,
+            "ssp585": 48
+          },
+          "2050": {
+            "ssp245": 42,
+            "ssp370": 49,
+            "ssp585": 55
+          },
+          "2080": {
+            "ssp245": 46,
+            "ssp370": 55,
+            "ssp585": 63
+          },
+          "2100": {
+            "ssp245": 49,
+            "ssp370": 60,
+            "ssp585": 70
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.32,
+              34.045
+            ],
+            [
+              -118.28,
+              34.045
+            ],
+            [
+              -118.28,
+              34.077
+            ],
+            [
+              -118.32,
+              34.077
+            ],
+            [
+              -118.32,
+              34.045
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-004",
+        "tract_fips": "06037190802",
+        "neighborhood": "Hollywood",
+        "tree_canopy_pct": 10,
+        "impervious_pct": 82,
+        "building_density_idx": 89,
+        "slope_idx": 7,
+        "drainage_stress_idx": 60,
+        "resilience_idx": 37,
+        "social_vulnerability": 72,
+        "wildfire_baseline": 16,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 65,
+            "ssp370": 71,
+            "ssp585": 75
+          },
+          "2050": {
+            "ssp245": 73,
+            "ssp370": 80,
+            "ssp585": 85
+          },
+          "2080": {
+            "ssp245": 79,
+            "ssp370": 87,
+            "ssp585": 94
+          },
+          "2100": {
+            "ssp245": 83,
+            "ssp370": 92,
+            "ssp585": 99
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 15,
+            "ssp370": 19,
+            "ssp585": 22
+          },
+          "2050": {
+            "ssp245": 19,
+            "ssp370": 25,
+            "ssp585": 29
+          },
+          "2080": {
+            "ssp245": 23,
+            "ssp370": 31,
+            "ssp585": 37
+          },
+          "2100": {
+            "ssp245": 26,
+            "ssp370": 35,
+            "ssp585": 42
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 9,
+            "ssp370": 14,
+            "ssp585": 20
+          },
+          "2050": {
+            "ssp245": 13,
+            "ssp370": 21,
+            "ssp585": 29
+          },
+          "2080": {
+            "ssp245": 18,
+            "ssp370": 29,
+            "ssp585": 42
+          },
+          "2100": {
+            "ssp245": 22,
+            "ssp370": 37,
+            "ssp585": 50
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 39,
+            "ssp370": 44,
+            "ssp585": 49
+          },
+          "2050": {
+            "ssp245": 43,
+            "ssp370": 50,
+            "ssp585": 56
+          },
+          "2080": {
+            "ssp245": 47,
+            "ssp370": 56,
+            "ssp585": 64
+          },
+          "2100": {
+            "ssp245": 50,
+            "ssp370": 61,
+            "ssp585": 71
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.353,
+              34.0815
+            ],
+            [
+              -118.311,
+              34.0815
+            ],
+            [
+              -118.311,
+              34.1145
+            ],
+            [
+              -118.353,
+              34.1145
+            ],
+            [
+              -118.353,
+              34.0815
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-005",
+        "tract_fips": "06037208802",
+        "neighborhood": "Westlake",
+        "tree_canopy_pct": 11,
+        "impervious_pct": 83,
+        "building_density_idx": 77,
+        "slope_idx": 9,
+        "drainage_stress_idx": 62,
+        "resilience_idx": 39,
+        "social_vulnerability": 74,
+        "wildfire_baseline": 17,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 66,
+            "ssp370": 72,
+            "ssp585": 76
+          },
+          "2050": {
+            "ssp245": 74,
+            "ssp370": 81,
+            "ssp585": 86
+          },
+          "2080": {
+            "ssp245": 80,
+            "ssp370": 88,
+            "ssp585": 95
+          },
+          "2100": {
+            "ssp245": 84,
+            "ssp370": 93,
+            "ssp585": 99
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 17,
+            "ssp370": 21,
+            "ssp585": 24
+          },
+          "2050": {
+            "ssp245": 21,
+            "ssp370": 27,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 25,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 28,
+            "ssp370": 37,
+            "ssp585": 44
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 10,
+            "ssp370": 15,
+            "ssp585": 21
+          },
+          "2050": {
+            "ssp245": 14,
+            "ssp370": 22,
+            "ssp585": 30
+          },
+          "2080": {
+            "ssp245": 19,
+            "ssp370": 30,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 23,
+            "ssp370": 38,
+            "ssp585": 51
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 31,
+            "ssp370": 36,
+            "ssp585": 41
+          },
+          "2050": {
+            "ssp245": 35,
+            "ssp370": 42,
+            "ssp585": 48
+          },
+          "2080": {
+            "ssp245": 39,
+            "ssp370": 48,
+            "ssp585": 56
+          },
+          "2100": {
+            "ssp245": 42,
+            "ssp370": 53,
+            "ssp585": 63
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.291,
+              34.0455
+            ],
+            [
+              -118.253,
+              34.0455
+            ],
+            [
+              -118.253,
+              34.0765
+            ],
+            [
+              -118.291,
+              34.0765
+            ],
+            [
+              -118.291,
+              34.0455
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-006",
+        "tract_fips": "06037233100",
+        "neighborhood": "South LA",
+        "tree_canopy_pct": 12,
+        "impervious_pct": 71,
+        "building_density_idx": 66,
+        "slope_idx": 7,
+        "drainage_stress_idx": 68,
+        "resilience_idx": 37,
+        "social_vulnerability": 83,
+        "wildfire_baseline": 15,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 60,
+            "ssp370": 66,
+            "ssp585": 70
+          },
+          "2050": {
+            "ssp245": 68,
+            "ssp370": 75,
+            "ssp585": 80
+          },
+          "2080": {
+            "ssp245": 74,
+            "ssp370": 82,
+            "ssp585": 89
+          },
+          "2100": {
+            "ssp245": 78,
+            "ssp370": 87,
+            "ssp585": 94
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 17,
+            "ssp370": 21,
+            "ssp585": 24
+          },
+          "2050": {
+            "ssp245": 21,
+            "ssp370": 27,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 25,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 28,
+            "ssp370": 37,
+            "ssp585": 44
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 6,
+            "ssp370": 11,
+            "ssp585": 17
+          },
+          "2050": {
+            "ssp245": 10,
+            "ssp370": 18,
+            "ssp585": 26
+          },
+          "2080": {
+            "ssp245": 15,
+            "ssp370": 26,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 19,
+            "ssp370": 34,
+            "ssp585": 47
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 37,
+            "ssp370": 42,
+            "ssp585": 47
+          },
+          "2050": {
+            "ssp245": 41,
+            "ssp370": 48,
+            "ssp585": 54
+          },
+          "2080": {
+            "ssp245": 45,
+            "ssp370": 54,
+            "ssp585": 62
+          },
+          "2100": {
+            "ssp245": 48,
+            "ssp370": 59,
+            "ssp585": 69
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.305,
+              33.96
+            ],
+            [
+              -118.255,
+              33.96
+            ],
+            [
+              -118.255,
+              34
+            ],
+            [
+              -118.305,
+              34
+            ],
+            [
+              -118.305,
+              33.96
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-007",
+        "tract_fips": "06037207101",
+        "neighborhood": "East LA",
+        "tree_canopy_pct": 7,
+        "impervious_pct": 73,
+        "building_density_idx": 69,
+        "slope_idx": 8,
+        "drainage_stress_idx": 71,
+        "resilience_idx": 39,
+        "social_vulnerability": 85,
+        "wildfire_baseline": 8,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 61,
+            "ssp370": 67,
+            "ssp585": 71
+          },
+          "2050": {
+            "ssp245": 69,
+            "ssp370": 76,
+            "ssp585": 81
+          },
+          "2080": {
+            "ssp245": 75,
+            "ssp370": 83,
+            "ssp585": 90
+          },
+          "2100": {
+            "ssp245": 79,
+            "ssp370": 88,
+            "ssp585": 95
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 18,
+            "ssp370": 22,
+            "ssp585": 25
+          },
+          "2050": {
+            "ssp245": 22,
+            "ssp370": 28,
+            "ssp585": 32
+          },
+          "2080": {
+            "ssp245": 26,
+            "ssp370": 34,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 29,
+            "ssp370": 38,
+            "ssp585": 45
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 7,
+            "ssp370": 12,
+            "ssp585": 18
+          },
+          "2050": {
+            "ssp245": 11,
+            "ssp370": 19,
+            "ssp585": 27
+          },
+          "2080": {
+            "ssp245": 16,
+            "ssp370": 27,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 20,
+            "ssp370": 35,
+            "ssp585": 48
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 39,
+            "ssp370": 44,
+            "ssp585": 49
+          },
+          "2050": {
+            "ssp245": 43,
+            "ssp370": 50,
+            "ssp585": 56
+          },
+          "2080": {
+            "ssp245": 47,
+            "ssp370": 56,
+            "ssp585": 64
+          },
+          "2100": {
+            "ssp245": 50,
+            "ssp370": 61,
+            "ssp585": 71
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.1925,
+              34.012
+            ],
+            [
+              -118.1475,
+              34.012
+            ],
+            [
+              -118.1475,
+              34.048
+            ],
+            [
+              -118.1925,
+              34.048
+            ],
+            [
+              -118.1925,
+              34.012
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-008",
+        "tract_fips": "06037267400",
+        "neighborhood": "Westwood",
+        "tree_canopy_pct": 12,
+        "impervious_pct": 65,
+        "building_density_idx": 66,
+        "slope_idx": 12,
+        "drainage_stress_idx": 60,
+        "resilience_idx": 55,
+        "social_vulnerability": 49,
+        "wildfire_baseline": 11,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 58,
+            "ssp370": 64,
+            "ssp585": 68
+          },
+          "2050": {
+            "ssp245": 66,
+            "ssp370": 73,
+            "ssp585": 78
+          },
+          "2080": {
+            "ssp245": 72,
+            "ssp370": 80,
+            "ssp585": 87
+          },
+          "2100": {
+            "ssp245": 76,
+            "ssp370": 85,
+            "ssp585": 92
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 17,
+            "ssp370": 21,
+            "ssp585": 24
+          },
+          "2050": {
+            "ssp245": 21,
+            "ssp370": 27,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 25,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 28,
+            "ssp370": 37,
+            "ssp585": 44
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 10,
+            "ssp370": 15,
+            "ssp585": 21
+          },
+          "2050": {
+            "ssp245": 14,
+            "ssp370": 22,
+            "ssp585": 30
+          },
+          "2080": {
+            "ssp245": 19,
+            "ssp370": 30,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 23,
+            "ssp370": 38,
+            "ssp585": 51
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 30,
+            "ssp370": 35,
+            "ssp585": 40
+          },
+          "2050": {
+            "ssp245": 34,
+            "ssp370": 41,
+            "ssp585": 47
+          },
+          "2080": {
+            "ssp245": 38,
+            "ssp370": 47,
+            "ssp585": 55
+          },
+          "2100": {
+            "ssp245": 41,
+            "ssp370": 52,
+            "ssp585": 62
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.465,
+              34.05
+            ],
+            [
+              -118.425,
+              34.05
+            ],
+            [
+              -118.425,
+              34.082
+            ],
+            [
+              -118.465,
+              34.082
+            ],
+            [
+              -118.465,
+              34.05
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-009",
+        "tract_fips": "06037265000",
+        "neighborhood": "Culver City Fringe",
+        "tree_canopy_pct": 14,
+        "impervious_pct": 67,
+        "building_density_idx": 69,
+        "slope_idx": 13,
+        "drainage_stress_idx": 62,
+        "resilience_idx": 42,
+        "social_vulnerability": 53,
+        "wildfire_baseline": 12,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 59,
+            "ssp370": 65,
+            "ssp585": 69
+          },
+          "2050": {
+            "ssp245": 67,
+            "ssp370": 74,
+            "ssp585": 79
+          },
+          "2080": {
+            "ssp245": 73,
+            "ssp370": 81,
+            "ssp585": 88
+          },
+          "2100": {
+            "ssp245": 77,
+            "ssp370": 86,
+            "ssp585": 93
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 18,
+            "ssp370": 22,
+            "ssp585": 25
+          },
+          "2050": {
+            "ssp245": 22,
+            "ssp370": 28,
+            "ssp585": 32
+          },
+          "2080": {
+            "ssp245": 26,
+            "ssp370": 34,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 29,
+            "ssp370": 38,
+            "ssp585": 45
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 11,
+            "ssp370": 16,
+            "ssp585": 22
+          },
+          "2050": {
+            "ssp245": 15,
+            "ssp370": 23,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 20,
+            "ssp370": 31,
+            "ssp585": 44
+          },
+          "2100": {
+            "ssp245": 24,
+            "ssp370": 39,
+            "ssp585": 52
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 32,
+            "ssp370": 37,
+            "ssp585": 42
+          },
+          "2050": {
+            "ssp245": 36,
+            "ssp370": 43,
+            "ssp585": 49
+          },
+          "2080": {
+            "ssp245": 40,
+            "ssp370": 49,
+            "ssp585": 57
+          },
+          "2100": {
+            "ssp245": 43,
+            "ssp370": 54,
+            "ssp585": 64
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.4125,
+              33.9825
+            ],
+            [
+              -118.3675,
+              33.9825
+            ],
+            [
+              -118.3675,
+              34.0175
+            ],
+            [
+              -118.4125,
+              34.0175
+            ],
+            [
+              -118.4125,
+              33.9825
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-010",
+        "tract_fips": "06037240502",
+        "neighborhood": "Inglewood",
+        "tree_canopy_pct": 10,
+        "impervious_pct": 79,
+        "building_density_idx": 78,
+        "slope_idx": 4,
+        "drainage_stress_idx": 63,
+        "resilience_idx": 33,
+        "social_vulnerability": 78,
+        "wildfire_baseline": 12,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 64,
+            "ssp370": 70,
+            "ssp585": 74
+          },
+          "2050": {
+            "ssp245": 72,
+            "ssp370": 79,
+            "ssp585": 84
+          },
+          "2080": {
+            "ssp245": 78,
+            "ssp370": 86,
+            "ssp585": 93
+          },
+          "2100": {
+            "ssp245": 82,
+            "ssp370": 91,
+            "ssp585": 98
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 14,
+            "ssp370": 18,
+            "ssp585": 21
+          },
+          "2050": {
+            "ssp245": 18,
+            "ssp370": 24,
+            "ssp585": 28
+          },
+          "2080": {
+            "ssp245": 22,
+            "ssp370": 30,
+            "ssp585": 36
+          },
+          "2100": {
+            "ssp245": 25,
+            "ssp370": 34,
+            "ssp585": 41
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 11,
+            "ssp370": 16,
+            "ssp585": 22
+          },
+          "2050": {
+            "ssp245": 15,
+            "ssp370": 23,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 20,
+            "ssp370": 31,
+            "ssp585": 44
+          },
+          "2100": {
+            "ssp245": 24,
+            "ssp370": 39,
+            "ssp585": 52
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 45,
+            "ssp370": 50,
+            "ssp585": 55
+          },
+          "2050": {
+            "ssp245": 49,
+            "ssp370": 56,
+            "ssp585": 62
+          },
+          "2080": {
+            "ssp245": 53,
+            "ssp370": 62,
+            "ssp585": 70
+          },
+          "2100": {
+            "ssp245": 56,
+            "ssp370": 67,
+            "ssp585": 77
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.38,
+              33.935
+            ],
+            [
+              -118.33,
+              33.935
+            ],
+            [
+              -118.33,
+              33.975
+            ],
+            [
+              -118.38,
+              33.975
+            ],
+            [
+              -118.38,
+              33.935
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-011",
+        "tract_fips": "06037265200",
+        "neighborhood": "Santa Monica",
+        "tree_canopy_pct": 18,
+        "impervious_pct": 69,
+        "building_density_idx": 51,
+        "slope_idx": 4,
+        "drainage_stress_idx": 67,
+        "resilience_idx": 49,
+        "social_vulnerability": 59,
+        "wildfire_baseline": 10,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 59,
+            "ssp370": 65,
+            "ssp585": 69
+          },
+          "2050": {
+            "ssp245": 67,
+            "ssp370": 74,
+            "ssp585": 79
+          },
+          "2080": {
+            "ssp245": 73,
+            "ssp370": 81,
+            "ssp585": 88
+          },
+          "2100": {
+            "ssp245": 77,
+            "ssp370": 86,
+            "ssp585": 93
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 10,
+            "ssp370": 14,
+            "ssp585": 17
+          },
+          "2050": {
+            "ssp245": 14,
+            "ssp370": 20,
+            "ssp585": 24
+          },
+          "2080": {
+            "ssp245": 18,
+            "ssp370": 26,
+            "ssp585": 32
+          },
+          "2100": {
+            "ssp245": 21,
+            "ssp370": 30,
+            "ssp585": 37
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 42,
+            "ssp370": 47,
+            "ssp585": 53
+          },
+          "2050": {
+            "ssp245": 46,
+            "ssp370": 54,
+            "ssp585": 62
+          },
+          "2080": {
+            "ssp245": 51,
+            "ssp370": 62,
+            "ssp585": 75
+          },
+          "2100": {
+            "ssp245": 55,
+            "ssp370": 70,
+            "ssp585": 83
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 19,
+            "ssp370": 24,
+            "ssp585": 29
+          },
+          "2050": {
+            "ssp245": 23,
+            "ssp370": 30,
+            "ssp585": 36
+          },
+          "2080": {
+            "ssp245": 27,
+            "ssp370": 36,
+            "ssp585": 44
+          },
+          "2100": {
+            "ssp245": 30,
+            "ssp370": 41,
+            "ssp585": 51
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.5145,
+              34.002
+            ],
+            [
+              -118.4695,
+              34.002
+            ],
+            [
+              -118.4695,
+              34.036
+            ],
+            [
+              -118.5145,
+              34.036
+            ],
+            [
+              -118.5145,
+              34.002
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-012",
+        "tract_fips": "06037273100",
+        "neighborhood": "Venice",
+        "tree_canopy_pct": 20,
+        "impervious_pct": 59,
+        "building_density_idx": 54,
+        "slope_idx": 5,
+        "drainage_stress_idx": 70,
+        "resilience_idx": 52,
+        "social_vulnerability": 62,
+        "wildfire_baseline": 11,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 54,
+            "ssp370": 60,
+            "ssp585": 64
+          },
+          "2050": {
+            "ssp245": 62,
+            "ssp370": 69,
+            "ssp585": 74
+          },
+          "2080": {
+            "ssp245": 68,
+            "ssp370": 76,
+            "ssp585": 83
+          },
+          "2100": {
+            "ssp245": 72,
+            "ssp370": 81,
+            "ssp585": 88
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 11,
+            "ssp370": 15,
+            "ssp585": 18
+          },
+          "2050": {
+            "ssp245": 15,
+            "ssp370": 21,
+            "ssp585": 25
+          },
+          "2080": {
+            "ssp245": 19,
+            "ssp370": 27,
+            "ssp585": 33
+          },
+          "2100": {
+            "ssp245": 22,
+            "ssp370": 31,
+            "ssp585": 38
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 28,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2050": {
+            "ssp245": 32,
+            "ssp370": 40,
+            "ssp585": 48
+          },
+          "2080": {
+            "ssp245": 37,
+            "ssp370": 48,
+            "ssp585": 61
+          },
+          "2100": {
+            "ssp245": 41,
+            "ssp370": 56,
+            "ssp585": 69
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 21,
+            "ssp370": 26,
+            "ssp585": 31
+          },
+          "2050": {
+            "ssp245": 25,
+            "ssp370": 32,
+            "ssp585": 38
+          },
+          "2080": {
+            "ssp245": 29,
+            "ssp370": 38,
+            "ssp585": 46
+          },
+          "2100": {
+            "ssp245": 32,
+            "ssp370": 43,
+            "ssp585": 53
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.493,
+              33.972
+            ],
+            [
+              -118.445,
+              33.972
+            ],
+            [
+              -118.445,
+              34.008
+            ],
+            [
+              -118.493,
+              34.008
+            ],
+            [
+              -118.493,
+              33.972
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-013",
+        "tract_fips": "06037275310",
+        "neighborhood": "Playa del Rey",
+        "tree_canopy_pct": 12,
+        "impervious_pct": 61,
+        "building_density_idx": 57,
+        "slope_idx": 6,
+        "drainage_stress_idx": 73,
+        "resilience_idx": 55,
+        "social_vulnerability": 66,
+        "wildfire_baseline": 5,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 55,
+            "ssp370": 61,
+            "ssp585": 65
+          },
+          "2050": {
+            "ssp245": 63,
+            "ssp370": 70,
+            "ssp585": 75
+          },
+          "2080": {
+            "ssp245": 69,
+            "ssp370": 77,
+            "ssp585": 84
+          },
+          "2100": {
+            "ssp245": 73,
+            "ssp370": 82,
+            "ssp585": 89
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 12,
+            "ssp370": 16,
+            "ssp585": 19
+          },
+          "2050": {
+            "ssp245": 16,
+            "ssp370": 22,
+            "ssp585": 26
+          },
+          "2080": {
+            "ssp245": 20,
+            "ssp370": 28,
+            "ssp585": 34
+          },
+          "2100": {
+            "ssp245": 23,
+            "ssp370": 32,
+            "ssp585": 39
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 31,
+            "ssp370": 36,
+            "ssp585": 42
+          },
+          "2050": {
+            "ssp245": 35,
+            "ssp370": 43,
+            "ssp585": 51
+          },
+          "2080": {
+            "ssp245": 40,
+            "ssp370": 51,
+            "ssp585": 64
+          },
+          "2100": {
+            "ssp245": 44,
+            "ssp370": 59,
+            "ssp585": 72
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 22,
+            "ssp370": 27,
+            "ssp585": 32
+          },
+          "2050": {
+            "ssp245": 26,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2080": {
+            "ssp245": 30,
+            "ssp370": 39,
+            "ssp585": 47
+          },
+          "2100": {
+            "ssp245": 33,
+            "ssp370": 44,
+            "ssp585": 54
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.4675,
+              33.9385
+            ],
+            [
+              -118.4225,
+              33.9385
+            ],
+            [
+              -118.4225,
+              33.9715
+            ],
+            [
+              -118.4675,
+              33.9715
+            ],
+            [
+              -118.4675,
+              33.9385
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-014",
+        "tract_fips": "06037576302",
+        "neighborhood": "Long Beach",
+        "tree_canopy_pct": 9,
+        "impervious_pct": 72,
+        "building_density_idx": 61,
+        "slope_idx": 7,
+        "drainage_stress_idx": 79,
+        "resilience_idx": 46,
+        "social_vulnerability": 67,
+        "wildfire_baseline": 8,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 59,
+            "ssp370": 65,
+            "ssp585": 69
+          },
+          "2050": {
+            "ssp245": 67,
+            "ssp370": 74,
+            "ssp585": 79
+          },
+          "2080": {
+            "ssp245": 73,
+            "ssp370": 81,
+            "ssp585": 88
+          },
+          "2100": {
+            "ssp245": 77,
+            "ssp370": 86,
+            "ssp585": 93
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 15,
+            "ssp370": 19,
+            "ssp585": 22
+          },
+          "2050": {
+            "ssp245": 19,
+            "ssp370": 25,
+            "ssp585": 29
+          },
+          "2080": {
+            "ssp245": 23,
+            "ssp370": 31,
+            "ssp585": 37
+          },
+          "2100": {
+            "ssp245": 26,
+            "ssp370": 35,
+            "ssp585": 42
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 32,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2050": {
+            "ssp245": 36,
+            "ssp370": 44,
+            "ssp585": 52
+          },
+          "2080": {
+            "ssp245": 41,
+            "ssp370": 52,
+            "ssp585": 65
+          },
+          "2100": {
+            "ssp245": 45,
+            "ssp370": 60,
+            "ssp585": 73
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 33,
+            "ssp370": 38,
+            "ssp585": 43
+          },
+          "2050": {
+            "ssp245": 37,
+            "ssp370": 44,
+            "ssp585": 50
+          },
+          "2080": {
+            "ssp245": 41,
+            "ssp370": 50,
+            "ssp585": 58
+          },
+          "2100": {
+            "ssp245": 44,
+            "ssp370": 55,
+            "ssp585": 65
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.222,
+              33.746
+            ],
+            [
+              -118.164,
+              33.746
+            ],
+            [
+              -118.164,
+              33.794
+            ],
+            [
+              -118.222,
+              33.794
+            ],
+            [
+              -118.222,
+              33.746
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-015",
+        "tract_fips": "06037296100",
+        "neighborhood": "Wilmington",
+        "tree_canopy_pct": 10,
+        "impervious_pct": 75,
+        "building_density_idx": 64,
+        "slope_idx": 8,
+        "drainage_stress_idx": 66,
+        "resilience_idx": 34,
+        "social_vulnerability": 70,
+        "wildfire_baseline": 9,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 60,
+            "ssp370": 66,
+            "ssp585": 70
+          },
+          "2050": {
+            "ssp245": 68,
+            "ssp370": 75,
+            "ssp585": 80
+          },
+          "2080": {
+            "ssp245": 74,
+            "ssp370": 82,
+            "ssp585": 89
+          },
+          "2100": {
+            "ssp245": 78,
+            "ssp370": 87,
+            "ssp585": 94
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 16,
+            "ssp370": 20,
+            "ssp585": 23
+          },
+          "2050": {
+            "ssp245": 20,
+            "ssp370": 26,
+            "ssp585": 30
+          },
+          "2080": {
+            "ssp245": 24,
+            "ssp370": 32,
+            "ssp585": 38
+          },
+          "2100": {
+            "ssp245": 27,
+            "ssp370": 36,
+            "ssp585": 43
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 34,
+            "ssp370": 39,
+            "ssp585": 45
+          },
+          "2050": {
+            "ssp245": 38,
+            "ssp370": 46,
+            "ssp585": 54
+          },
+          "2080": {
+            "ssp245": 43,
+            "ssp370": 54,
+            "ssp585": 67
+          },
+          "2100": {
+            "ssp245": 47,
+            "ssp370": 62,
+            "ssp585": 75
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 35,
+            "ssp370": 40,
+            "ssp585": 45
+          },
+          "2050": {
+            "ssp245": 39,
+            "ssp370": 46,
+            "ssp585": 52
+          },
+          "2080": {
+            "ssp245": 43,
+            "ssp370": 52,
+            "ssp585": 60
+          },
+          "2100": {
+            "ssp245": 46,
+            "ssp370": 57,
+            "ssp585": 67
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.281,
+              33.759
+            ],
+            [
+              -118.229,
+              33.759
+            ],
+            [
+              -118.229,
+              33.801
+            ],
+            [
+              -118.281,
+              33.801
+            ],
+            [
+              -118.281,
+              33.759
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-016",
+        "tract_fips": "06037298700",
+        "neighborhood": "San Pedro",
+        "tree_canopy_pct": 17,
+        "impervious_pct": 67,
+        "building_density_idx": 65,
+        "slope_idx": 3,
+        "drainage_stress_idx": 65,
+        "resilience_idx": 47,
+        "social_vulnerability": 55,
+        "wildfire_baseline": 9,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 58,
+            "ssp370": 64,
+            "ssp585": 68
+          },
+          "2050": {
+            "ssp245": 66,
+            "ssp370": 73,
+            "ssp585": 78
+          },
+          "2080": {
+            "ssp245": 72,
+            "ssp370": 80,
+            "ssp585": 87
+          },
+          "2100": {
+            "ssp245": 76,
+            "ssp370": 85,
+            "ssp585": 92
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 8,
+            "ssp370": 12,
+            "ssp585": 15
+          },
+          "2050": {
+            "ssp245": 12,
+            "ssp370": 18,
+            "ssp585": 22
+          },
+          "2080": {
+            "ssp245": 16,
+            "ssp370": 24,
+            "ssp585": 30
+          },
+          "2100": {
+            "ssp245": 19,
+            "ssp370": 28,
+            "ssp585": 35
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 39,
+            "ssp370": 44,
+            "ssp585": 50
+          },
+          "2050": {
+            "ssp245": 43,
+            "ssp370": 51,
+            "ssp585": 59
+          },
+          "2080": {
+            "ssp245": 48,
+            "ssp370": 59,
+            "ssp585": 72
+          },
+          "2100": {
+            "ssp245": 52,
+            "ssp370": 67,
+            "ssp585": 80
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 28,
+            "ssp370": 33,
+            "ssp585": 38
+          },
+          "2050": {
+            "ssp245": 32,
+            "ssp370": 39,
+            "ssp585": 45
+          },
+          "2080": {
+            "ssp245": 36,
+            "ssp370": 45,
+            "ssp585": 53
+          },
+          "2100": {
+            "ssp245": 39,
+            "ssp370": 50,
+            "ssp585": 60
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.318,
+              33.7175
+            ],
+            [
+              -118.262,
+              33.7175
+            ],
+            [
+              -118.262,
+              33.7625
+            ],
+            [
+              -118.318,
+              33.7625
+            ],
+            [
+              -118.318,
+              33.7175
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-017",
+        "tract_fips": "06037296200",
+        "neighborhood": "Harbor City",
+        "tree_canopy_pct": 13,
+        "impervious_pct": 79,
+        "building_density_idx": 53,
+        "slope_idx": 4,
+        "drainage_stress_idx": 71,
+        "resilience_idx": 39,
+        "social_vulnerability": 76,
+        "wildfire_baseline": 11,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 62,
+            "ssp370": 68,
+            "ssp585": 72
+          },
+          "2050": {
+            "ssp245": 70,
+            "ssp370": 77,
+            "ssp585": 82
+          },
+          "2080": {
+            "ssp245": 76,
+            "ssp370": 84,
+            "ssp585": 91
+          },
+          "2100": {
+            "ssp245": 80,
+            "ssp370": 89,
+            "ssp585": 96
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 11,
+            "ssp370": 15,
+            "ssp585": 18
+          },
+          "2050": {
+            "ssp245": 15,
+            "ssp370": 21,
+            "ssp585": 25
+          },
+          "2080": {
+            "ssp245": 19,
+            "ssp370": 27,
+            "ssp585": 33
+          },
+          "2100": {
+            "ssp245": 22,
+            "ssp370": 31,
+            "ssp585": 38
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 40,
+            "ssp370": 45,
+            "ssp585": 51
+          },
+          "2050": {
+            "ssp245": 44,
+            "ssp370": 52,
+            "ssp585": 60
+          },
+          "2080": {
+            "ssp245": 49,
+            "ssp370": 60,
+            "ssp585": 73
+          },
+          "2100": {
+            "ssp245": 53,
+            "ssp370": 68,
+            "ssp585": 81
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 27,
+            "ssp370": 32,
+            "ssp585": 37
+          },
+          "2050": {
+            "ssp245": 31,
+            "ssp370": 38,
+            "ssp585": 44
+          },
+          "2080": {
+            "ssp245": 35,
+            "ssp370": 44,
+            "ssp585": 52
+          },
+          "2100": {
+            "ssp245": 38,
+            "ssp370": 49,
+            "ssp585": 59
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.324,
+              33.78
+            ],
+            [
+              -118.276,
+              33.78
+            ],
+            [
+              -118.276,
+              33.82
+            ],
+            [
+              -118.324,
+              33.82
+            ],
+            [
+              -118.324,
+              33.78
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-018",
+        "tract_fips": "06037240700",
+        "neighborhood": "Compton",
+        "tree_canopy_pct": 12,
+        "impervious_pct": 71,
+        "building_density_idx": 67,
+        "slope_idx": 7,
+        "drainage_stress_idx": 68,
+        "resilience_idx": 38,
+        "social_vulnerability": 83,
+        "wildfire_baseline": 15,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 60,
+            "ssp370": 66,
+            "ssp585": 70
+          },
+          "2050": {
+            "ssp245": 68,
+            "ssp370": 75,
+            "ssp585": 80
+          },
+          "2080": {
+            "ssp245": 74,
+            "ssp370": 82,
+            "ssp585": 89
+          },
+          "2100": {
+            "ssp245": 78,
+            "ssp370": 87,
+            "ssp585": 94
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 17,
+            "ssp370": 21,
+            "ssp585": 24
+          },
+          "2050": {
+            "ssp245": 21,
+            "ssp370": 27,
+            "ssp585": 31
+          },
+          "2080": {
+            "ssp245": 25,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 28,
+            "ssp370": 37,
+            "ssp585": 44
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 6,
+            "ssp370": 11,
+            "ssp585": 17
+          },
+          "2050": {
+            "ssp245": 10,
+            "ssp370": 18,
+            "ssp585": 26
+          },
+          "2080": {
+            "ssp245": 15,
+            "ssp370": 26,
+            "ssp585": 39
+          },
+          "2100": {
+            "ssp245": 19,
+            "ssp370": 34,
+            "ssp585": 47
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 37,
+            "ssp370": 42,
+            "ssp585": 47
+          },
+          "2050": {
+            "ssp245": 41,
+            "ssp370": 48,
+            "ssp585": 54
+          },
+          "2080": {
+            "ssp245": 45,
+            "ssp370": 54,
+            "ssp585": 62
+          },
+          "2100": {
+            "ssp245": 48,
+            "ssp370": 59,
+            "ssp585": 69
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.245,
+              33.874
+            ],
+            [
+              -118.195,
+              33.874
+            ],
+            [
+              -118.195,
+              33.916
+            ],
+            [
+              -118.245,
+              33.916
+            ],
+            [
+              -118.245,
+              33.874
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-019",
+        "tract_fips": "06037297000",
+        "neighborhood": "Carson",
+        "tree_canopy_pct": 7,
+        "impervious_pct": 73,
+        "building_density_idx": 70,
+        "slope_idx": 8,
+        "drainage_stress_idx": 71,
+        "resilience_idx": 40,
+        "social_vulnerability": 85,
+        "wildfire_baseline": 8,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 61,
+            "ssp370": 67,
+            "ssp585": 71
+          },
+          "2050": {
+            "ssp245": 69,
+            "ssp370": 76,
+            "ssp585": 81
+          },
+          "2080": {
+            "ssp245": 75,
+            "ssp370": 83,
+            "ssp585": 90
+          },
+          "2100": {
+            "ssp245": 79,
+            "ssp370": 88,
+            "ssp585": 95
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 18,
+            "ssp370": 22,
+            "ssp585": 25
+          },
+          "2050": {
+            "ssp245": 22,
+            "ssp370": 28,
+            "ssp585": 32
+          },
+          "2080": {
+            "ssp245": 26,
+            "ssp370": 34,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 29,
+            "ssp370": 38,
+            "ssp585": 45
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 7,
+            "ssp370": 12,
+            "ssp585": 18
+          },
+          "2050": {
+            "ssp245": 11,
+            "ssp370": 19,
+            "ssp585": 27
+          },
+          "2080": {
+            "ssp245": 16,
+            "ssp370": 27,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 20,
+            "ssp370": 35,
+            "ssp585": 48
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 39,
+            "ssp370": 44,
+            "ssp585": 49
+          },
+          "2050": {
+            "ssp245": 43,
+            "ssp370": 50,
+            "ssp585": 56
+          },
+          "2080": {
+            "ssp245": 47,
+            "ssp370": 56,
+            "ssp585": 64
+          },
+          "2100": {
+            "ssp245": 50,
+            "ssp370": 61,
+            "ssp585": 71
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.276,
+              33.819
+            ],
+            [
+              -118.224,
+              33.819
+            ],
+            [
+              -118.224,
+              33.861
+            ],
+            [
+              -118.276,
+              33.861
+            ],
+            [
+              -118.276,
+              33.819
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-020",
+        "tract_fips": "06037650100",
+        "neighborhood": "Torrance",
+        "tree_canopy_pct": 15,
+        "impervious_pct": 62,
+        "building_density_idx": 53,
+        "slope_idx": 8,
+        "drainage_stress_idx": 64,
+        "resilience_idx": 54,
+        "social_vulnerability": 52,
+        "wildfire_baseline": 9,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 57,
+            "ssp370": 63,
+            "ssp585": 67
+          },
+          "2050": {
+            "ssp245": 65,
+            "ssp370": 72,
+            "ssp585": 77
+          },
+          "2080": {
+            "ssp245": 71,
+            "ssp370": 79,
+            "ssp585": 86
+          },
+          "2100": {
+            "ssp245": 75,
+            "ssp370": 84,
+            "ssp585": 91
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 16,
+            "ssp370": 20,
+            "ssp585": 23
+          },
+          "2050": {
+            "ssp245": 20,
+            "ssp370": 26,
+            "ssp585": 30
+          },
+          "2080": {
+            "ssp245": 24,
+            "ssp370": 32,
+            "ssp585": 38
+          },
+          "2100": {
+            "ssp245": 27,
+            "ssp370": 36,
+            "ssp585": 43
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 18,
+            "ssp370": 23,
+            "ssp585": 29
+          },
+          "2050": {
+            "ssp245": 22,
+            "ssp370": 30,
+            "ssp585": 38
+          },
+          "2080": {
+            "ssp245": 27,
+            "ssp370": 38,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 31,
+            "ssp370": 46,
+            "ssp585": 59
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 29,
+            "ssp370": 34,
+            "ssp585": 39
+          },
+          "2050": {
+            "ssp245": 33,
+            "ssp370": 40,
+            "ssp585": 46
+          },
+          "2080": {
+            "ssp245": 37,
+            "ssp370": 46,
+            "ssp585": 54
+          },
+          "2100": {
+            "ssp245": 40,
+            "ssp370": 51,
+            "ssp585": 61
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.3675,
+              33.8175
+            ],
+            [
+              -118.3125,
+              33.8175
+            ],
+            [
+              -118.3125,
+              33.8625
+            ],
+            [
+              -118.3675,
+              33.8625
+            ],
+            [
+              -118.3675,
+              33.8175
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-021",
+        "tract_fips": "06037460300",
+        "neighborhood": "Glendale",
+        "tree_canopy_pct": 21,
+        "impervious_pct": 57,
+        "building_density_idx": 54,
+        "slope_idx": 28,
+        "drainage_stress_idx": 34,
+        "resilience_idx": 44,
+        "social_vulnerability": 45,
+        "wildfire_baseline": 26,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 60,
+            "ssp370": 66,
+            "ssp585": 70
+          },
+          "2050": {
+            "ssp245": 68,
+            "ssp370": 75,
+            "ssp585": 80
+          },
+          "2080": {
+            "ssp245": 74,
+            "ssp370": 82,
+            "ssp585": 89
+          },
+          "2100": {
+            "ssp245": 78,
+            "ssp370": 87,
+            "ssp585": 94
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 31,
+            "ssp370": 35,
+            "ssp585": 38
+          },
+          "2050": {
+            "ssp245": 35,
+            "ssp370": 41,
+            "ssp585": 45
+          },
+          "2080": {
+            "ssp245": 39,
+            "ssp370": 47,
+            "ssp585": 53
+          },
+          "2100": {
+            "ssp245": 42,
+            "ssp370": 51,
+            "ssp585": 58
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 4,
+            "ssp370": 9,
+            "ssp585": 15
+          },
+          "2050": {
+            "ssp245": 8,
+            "ssp370": 16,
+            "ssp585": 24
+          },
+          "2080": {
+            "ssp245": 13,
+            "ssp370": 24,
+            "ssp585": 37
+          },
+          "2100": {
+            "ssp245": 17,
+            "ssp370": 32,
+            "ssp585": 45
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 24,
+            "ssp370": 29,
+            "ssp585": 34
+          },
+          "2050": {
+            "ssp245": 28,
+            "ssp370": 35,
+            "ssp585": 41
+          },
+          "2080": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 49
+          },
+          "2100": {
+            "ssp245": 35,
+            "ssp370": 46,
+            "ssp585": 56
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.279,
+              34.126
+            ],
+            [
+              -118.231,
+              34.126
+            ],
+            [
+              -118.231,
+              34.164
+            ],
+            [
+              -118.279,
+              34.164
+            ],
+            [
+              -118.279,
+              34.126
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-022",
+        "tract_fips": "06037410201",
+        "neighborhood": "Burbank",
+        "tree_canopy_pct": 23,
+        "impervious_pct": 59,
+        "building_density_idx": 57,
+        "slope_idx": 17,
+        "drainage_stress_idx": 37,
+        "resilience_idx": 47,
+        "social_vulnerability": 49,
+        "wildfire_baseline": 29,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 61,
+            "ssp370": 67,
+            "ssp585": 71
+          },
+          "2050": {
+            "ssp245": 69,
+            "ssp370": 76,
+            "ssp585": 81
+          },
+          "2080": {
+            "ssp245": 75,
+            "ssp370": 83,
+            "ssp585": 90
+          },
+          "2100": {
+            "ssp245": 79,
+            "ssp370": 88,
+            "ssp585": 95
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 21,
+            "ssp370": 25,
+            "ssp585": 28
+          },
+          "2050": {
+            "ssp245": 25,
+            "ssp370": 31,
+            "ssp585": 35
+          },
+          "2080": {
+            "ssp245": 29,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 48
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 4,
+            "ssp370": 9,
+            "ssp585": 15
+          },
+          "2050": {
+            "ssp245": 8,
+            "ssp370": 16,
+            "ssp585": 24
+          },
+          "2080": {
+            "ssp245": 13,
+            "ssp370": 24,
+            "ssp585": 37
+          },
+          "2100": {
+            "ssp245": 17,
+            "ssp370": 32,
+            "ssp585": 45
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 26,
+            "ssp370": 31,
+            "ssp585": 36
+          },
+          "2050": {
+            "ssp245": 30,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2080": {
+            "ssp245": 34,
+            "ssp370": 43,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 37,
+            "ssp370": 48,
+            "ssp585": 58
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.34,
+              34.162
+            ],
+            [
+              -118.29,
+              34.162
+            ],
+            [
+              -118.29,
+              34.2
+            ],
+            [
+              -118.34,
+              34.2
+            ],
+            [
+              -118.34,
+              34.162
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-023",
+        "tract_fips": "06037462202",
+        "neighborhood": "Pasadena",
+        "tree_canopy_pct": 24,
+        "impervious_pct": 62,
+        "building_density_idx": 43,
+        "slope_idx": 19,
+        "drainage_stress_idx": 40,
+        "resilience_idx": 50,
+        "social_vulnerability": 52,
+        "wildfire_baseline": 31,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 62,
+            "ssp370": 68,
+            "ssp585": 72
+          },
+          "2050": {
+            "ssp245": 70,
+            "ssp370": 77,
+            "ssp585": 82
+          },
+          "2080": {
+            "ssp245": 76,
+            "ssp370": 84,
+            "ssp585": 91
+          },
+          "2100": {
+            "ssp245": 80,
+            "ssp370": 89,
+            "ssp585": 96
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 23,
+            "ssp370": 27,
+            "ssp585": 30
+          },
+          "2050": {
+            "ssp245": 27,
+            "ssp370": 33,
+            "ssp585": 37
+          },
+          "2080": {
+            "ssp245": 31,
+            "ssp370": 39,
+            "ssp585": 45
+          },
+          "2100": {
+            "ssp245": 34,
+            "ssp370": 43,
+            "ssp585": 50
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 5,
+            "ssp370": 10,
+            "ssp585": 16
+          },
+          "2050": {
+            "ssp245": 9,
+            "ssp370": 17,
+            "ssp585": 25
+          },
+          "2080": {
+            "ssp245": 14,
+            "ssp370": 25,
+            "ssp585": 38
+          },
+          "2100": {
+            "ssp245": 18,
+            "ssp370": 33,
+            "ssp585": 46
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 17,
+            "ssp370": 22,
+            "ssp585": 27
+          },
+          "2050": {
+            "ssp245": 21,
+            "ssp370": 28,
+            "ssp585": 34
+          },
+          "2080": {
+            "ssp245": 25,
+            "ssp370": 34,
+            "ssp585": 42
+          },
+          "2100": {
+            "ssp245": 28,
+            "ssp370": 39,
+            "ssp585": 49
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.17,
+              34.129
+            ],
+            [
+              -118.12,
+              34.129
+            ],
+            [
+              -118.12,
+              34.169
+            ],
+            [
+              -118.17,
+              34.169
+            ],
+            [
+              -118.17,
+              34.129
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-024",
+        "tract_fips": "06037461000",
+        "neighborhood": "Altadena Foothills",
+        "tree_canopy_pct": 20,
+        "impervious_pct": 37,
+        "building_density_idx": 33,
+        "slope_idx": 35,
+        "drainage_stress_idx": 32,
+        "resilience_idx": 55,
+        "social_vulnerability": 48,
+        "wildfire_baseline": 56,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 58,
+            "ssp370": 64,
+            "ssp585": 68
+          },
+          "2050": {
+            "ssp245": 66,
+            "ssp370": 73,
+            "ssp585": 78
+          },
+          "2080": {
+            "ssp245": 72,
+            "ssp370": 80,
+            "ssp585": 87
+          },
+          "2100": {
+            "ssp245": 76,
+            "ssp370": 85,
+            "ssp585": 92
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 34,
+            "ssp370": 38,
+            "ssp585": 41
+          },
+          "2050": {
+            "ssp245": 38,
+            "ssp370": 44,
+            "ssp585": 48
+          },
+          "2080": {
+            "ssp245": 42,
+            "ssp370": 50,
+            "ssp585": 56
+          },
+          "2100": {
+            "ssp245": 45,
+            "ssp370": 54,
+            "ssp585": 61
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 0,
+            "ssp370": 5,
+            "ssp585": 11
+          },
+          "2050": {
+            "ssp245": 4,
+            "ssp370": 12,
+            "ssp585": 20
+          },
+          "2080": {
+            "ssp245": 9,
+            "ssp370": 20,
+            "ssp585": 33
+          },
+          "2100": {
+            "ssp245": 13,
+            "ssp370": 28,
+            "ssp585": 41
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 15,
+            "ssp370": 20,
+            "ssp585": 25
+          },
+          "2050": {
+            "ssp245": 19,
+            "ssp370": 26,
+            "ssp585": 32
+          },
+          "2080": {
+            "ssp245": 23,
+            "ssp370": 32,
+            "ssp585": 40
+          },
+          "2100": {
+            "ssp245": 26,
+            "ssp370": 37,
+            "ssp585": 47
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.1575,
+              34.174
+            ],
+            [
+              -118.1025,
+              34.174
+            ],
+            [
+              -118.1025,
+              34.216
+            ],
+            [
+              -118.1575,
+              34.216
+            ],
+            [
+              -118.1575,
+              34.174
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-025",
+        "tract_fips": "06037113101",
+        "neighborhood": "Northridge",
+        "tree_canopy_pct": 16,
+        "impervious_pct": 54,
+        "building_density_idx": 48,
+        "slope_idx": 18,
+        "drainage_stress_idx": 46,
+        "resilience_idx": 55,
+        "social_vulnerability": 59,
+        "wildfire_baseline": 19,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 61,
+            "ssp370": 67,
+            "ssp585": 71
+          },
+          "2050": {
+            "ssp245": 69,
+            "ssp370": 76,
+            "ssp585": 81
+          },
+          "2080": {
+            "ssp245": 75,
+            "ssp370": 83,
+            "ssp585": 90
+          },
+          "2100": {
+            "ssp245": 79,
+            "ssp370": 88,
+            "ssp585": 95
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 25,
+            "ssp370": 29,
+            "ssp585": 32
+          },
+          "2050": {
+            "ssp245": 29,
+            "ssp370": 35,
+            "ssp585": 39
+          },
+          "2080": {
+            "ssp245": 33,
+            "ssp370": 41,
+            "ssp585": 47
+          },
+          "2100": {
+            "ssp245": 36,
+            "ssp370": 45,
+            "ssp585": 52
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 1,
+            "ssp370": 6,
+            "ssp585": 12
+          },
+          "2050": {
+            "ssp245": 5,
+            "ssp370": 13,
+            "ssp585": 21
+          },
+          "2080": {
+            "ssp245": 10,
+            "ssp370": 21,
+            "ssp585": 34
+          },
+          "2100": {
+            "ssp245": 14,
+            "ssp370": 29,
+            "ssp585": 42
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 22,
+            "ssp370": 27,
+            "ssp585": 32
+          },
+          "2050": {
+            "ssp245": 26,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2080": {
+            "ssp245": 30,
+            "ssp370": 39,
+            "ssp585": 47
+          },
+          "2100": {
+            "ssp245": 33,
+            "ssp370": 44,
+            "ssp585": 54
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.56,
+              34.216
+            ],
+            [
+              -118.5,
+              34.216
+            ],
+            [
+              -118.5,
+              34.264
+            ],
+            [
+              -118.56,
+              34.264
+            ],
+            [
+              -118.56,
+              34.216
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-026",
+        "tract_fips": "06037125100",
+        "neighborhood": "Van Nuys",
+        "tree_canopy_pct": 17,
+        "impervious_pct": 57,
+        "building_density_idx": 51,
+        "slope_idx": 20,
+        "drainage_stress_idx": 49,
+        "resilience_idx": 58,
+        "social_vulnerability": 44,
+        "wildfire_baseline": 22,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 63,
+            "ssp370": 69,
+            "ssp585": 73
+          },
+          "2050": {
+            "ssp245": 71,
+            "ssp370": 78,
+            "ssp585": 83
+          },
+          "2080": {
+            "ssp245": 77,
+            "ssp370": 85,
+            "ssp585": 92
+          },
+          "2100": {
+            "ssp245": 81,
+            "ssp370": 90,
+            "ssp585": 97
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 27,
+            "ssp370": 31,
+            "ssp585": 34
+          },
+          "2050": {
+            "ssp245": 31,
+            "ssp370": 37,
+            "ssp585": 41
+          },
+          "2080": {
+            "ssp245": 35,
+            "ssp370": 43,
+            "ssp585": 49
+          },
+          "2100": {
+            "ssp245": 38,
+            "ssp370": 47,
+            "ssp585": 54
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 2,
+            "ssp370": 7,
+            "ssp585": 13
+          },
+          "2050": {
+            "ssp245": 6,
+            "ssp370": 14,
+            "ssp585": 22
+          },
+          "2080": {
+            "ssp245": 11,
+            "ssp370": 22,
+            "ssp585": 35
+          },
+          "2100": {
+            "ssp245": 15,
+            "ssp370": 30,
+            "ssp585": 43
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 24,
+            "ssp370": 29,
+            "ssp585": 34
+          },
+          "2050": {
+            "ssp245": 28,
+            "ssp370": 35,
+            "ssp585": 41
+          },
+          "2080": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 49
+          },
+          "2100": {
+            "ssp245": 35,
+            "ssp370": 46,
+            "ssp585": 56
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.4825,
+              34.166
+            ],
+            [
+              -118.4275,
+              34.166
+            ],
+            [
+              -118.4275,
+              34.208
+            ],
+            [
+              -118.4825,
+              34.208
+            ],
+            [
+              -118.4825,
+              34.166
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-027",
+        "tract_fips": "06037122710",
+        "neighborhood": "North Hollywood",
+        "tree_canopy_pct": 19,
+        "impervious_pct": 59,
+        "building_density_idx": 54,
+        "slope_idx": 23,
+        "drainage_stress_idx": 34,
+        "resilience_idx": 46,
+        "social_vulnerability": 47,
+        "wildfire_baseline": 25,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 64,
+            "ssp370": 70,
+            "ssp585": 74
+          },
+          "2050": {
+            "ssp245": 72,
+            "ssp370": 79,
+            "ssp585": 84
+          },
+          "2080": {
+            "ssp245": 78,
+            "ssp370": 86,
+            "ssp585": 93
+          },
+          "2100": {
+            "ssp245": 82,
+            "ssp370": 91,
+            "ssp585": 98
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 29,
+            "ssp370": 33,
+            "ssp585": 36
+          },
+          "2050": {
+            "ssp245": 33,
+            "ssp370": 39,
+            "ssp585": 43
+          },
+          "2080": {
+            "ssp245": 37,
+            "ssp370": 45,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 40,
+            "ssp370": 49,
+            "ssp585": 56
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 3,
+            "ssp370": 8,
+            "ssp585": 14
+          },
+          "2050": {
+            "ssp245": 7,
+            "ssp370": 15,
+            "ssp585": 23
+          },
+          "2080": {
+            "ssp245": 12,
+            "ssp370": 23,
+            "ssp585": 36
+          },
+          "2100": {
+            "ssp245": 16,
+            "ssp370": 31,
+            "ssp585": 44
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 26,
+            "ssp370": 31,
+            "ssp585": 36
+          },
+          "2050": {
+            "ssp245": 30,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2080": {
+            "ssp245": 34,
+            "ssp370": 43,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 37,
+            "ssp370": 48,
+            "ssp585": 58
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.411,
+              34.151
+            ],
+            [
+              -118.359,
+              34.151
+            ],
+            [
+              -118.359,
+              34.191
+            ],
+            [
+              -118.411,
+              34.191
+            ],
+            [
+              -118.411,
+              34.151
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-028",
+        "tract_fips": "06037110710",
+        "neighborhood": "Chatsworth",
+        "tree_canopy_pct": 28,
+        "impervious_pct": 50,
+        "building_density_idx": 45,
+        "slope_idx": 29,
+        "drainage_stress_idx": 27,
+        "resilience_idx": 50,
+        "social_vulnerability": 42,
+        "wildfire_baseline": 48,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 64,
+            "ssp370": 70,
+            "ssp585": 74
+          },
+          "2050": {
+            "ssp245": 72,
+            "ssp370": 79,
+            "ssp585": 84
+          },
+          "2080": {
+            "ssp245": 78,
+            "ssp370": 86,
+            "ssp585": 93
+          },
+          "2100": {
+            "ssp245": 82,
+            "ssp370": 91,
+            "ssp585": 98
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 29,
+            "ssp370": 33,
+            "ssp585": 36
+          },
+          "2050": {
+            "ssp245": 33,
+            "ssp370": 39,
+            "ssp585": 43
+          },
+          "2080": {
+            "ssp245": 37,
+            "ssp370": 45,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 40,
+            "ssp370": 49,
+            "ssp585": 56
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 3,
+            "ssp370": 8,
+            "ssp585": 14
+          },
+          "2050": {
+            "ssp245": 7,
+            "ssp370": 15,
+            "ssp585": 23
+          },
+          "2080": {
+            "ssp245": 12,
+            "ssp370": 23,
+            "ssp585": 36
+          },
+          "2100": {
+            "ssp245": 16,
+            "ssp370": 31,
+            "ssp585": 44
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 22,
+            "ssp370": 27,
+            "ssp585": 32
+          },
+          "2050": {
+            "ssp245": 26,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2080": {
+            "ssp245": 30,
+            "ssp370": 39,
+            "ssp585": 47
+          },
+          "2100": {
+            "ssp245": 33,
+            "ssp370": 44,
+            "ssp585": 54
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.636,
+              34.233
+            ],
+            [
+              -118.574,
+              34.233
+            ],
+            [
+              -118.574,
+              34.283
+            ],
+            [
+              -118.636,
+              34.283
+            ],
+            [
+              -118.636,
+              34.233
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-029",
+        "tract_fips": "06037113600",
+        "neighborhood": "Canoga Park",
+        "tree_canopy_pct": 23,
+        "impervious_pct": 64,
+        "building_density_idx": 42,
+        "slope_idx": 13,
+        "drainage_stress_idx": 40,
+        "resilience_idx": 51,
+        "social_vulnerability": 53,
+        "wildfire_baseline": 30,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 66,
+            "ssp370": 72,
+            "ssp585": 76
+          },
+          "2050": {
+            "ssp245": 74,
+            "ssp370": 81,
+            "ssp585": 86
+          },
+          "2080": {
+            "ssp245": 80,
+            "ssp370": 88,
+            "ssp585": 95
+          },
+          "2100": {
+            "ssp245": 84,
+            "ssp370": 93,
+            "ssp585": 99
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 21,
+            "ssp370": 25,
+            "ssp585": 28
+          },
+          "2050": {
+            "ssp245": 25,
+            "ssp370": 31,
+            "ssp585": 35
+          },
+          "2080": {
+            "ssp245": 29,
+            "ssp370": 37,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 48
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 0,
+            "ssp370": 5,
+            "ssp585": 11
+          },
+          "2050": {
+            "ssp245": 4,
+            "ssp370": 12,
+            "ssp585": 20
+          },
+          "2080": {
+            "ssp245": 9,
+            "ssp370": 20,
+            "ssp585": 33
+          },
+          "2100": {
+            "ssp245": 13,
+            "ssp370": 28,
+            "ssp585": 41
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 18,
+            "ssp370": 23,
+            "ssp585": 28
+          },
+          "2050": {
+            "ssp245": 22,
+            "ssp370": 29,
+            "ssp585": 35
+          },
+          "2080": {
+            "ssp245": 26,
+            "ssp370": 35,
+            "ssp585": 43
+          },
+          "2100": {
+            "ssp245": 29,
+            "ssp370": 40,
+            "ssp585": 50
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.628,
+              34.1785
+            ],
+            [
+              -118.572,
+              34.1785
+            ],
+            [
+              -118.572,
+              34.2235
+            ],
+            [
+              -118.628,
+              34.2235
+            ],
+            [
+              -118.628,
+              34.1785
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-030",
+        "tract_fips": "06037403301",
+        "neighborhood": "Pomona",
+        "tree_canopy_pct": 10,
+        "impervious_pct": 47,
+        "building_density_idx": 37,
+        "slope_idx": 14,
+        "drainage_stress_idx": 37,
+        "resilience_idx": 51,
+        "social_vulnerability": 54,
+        "wildfire_baseline": 31,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 59,
+            "ssp370": 65,
+            "ssp585": 69
+          },
+          "2050": {
+            "ssp245": 67,
+            "ssp370": 74,
+            "ssp585": 79
+          },
+          "2080": {
+            "ssp245": 73,
+            "ssp370": 81,
+            "ssp585": 88
+          },
+          "2100": {
+            "ssp245": 77,
+            "ssp370": 86,
+            "ssp585": 93
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 22,
+            "ssp370": 26,
+            "ssp585": 29
+          },
+          "2050": {
+            "ssp245": 26,
+            "ssp370": 32,
+            "ssp585": 36
+          },
+          "2080": {
+            "ssp245": 30,
+            "ssp370": 38,
+            "ssp585": 44
+          },
+          "2100": {
+            "ssp245": 33,
+            "ssp370": 42,
+            "ssp585": 49
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 0,
+            "ssp370": 5,
+            "ssp585": 11
+          },
+          "2050": {
+            "ssp245": 4,
+            "ssp370": 12,
+            "ssp585": 20
+          },
+          "2080": {
+            "ssp245": 9,
+            "ssp370": 20,
+            "ssp585": 33
+          },
+          "2100": {
+            "ssp245": 13,
+            "ssp370": 28,
+            "ssp585": 41
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 19,
+            "ssp370": 24,
+            "ssp585": 29
+          },
+          "2050": {
+            "ssp245": 23,
+            "ssp370": 30,
+            "ssp585": 36
+          },
+          "2080": {
+            "ssp245": 27,
+            "ssp370": 36,
+            "ssp585": 44
+          },
+          "2100": {
+            "ssp245": 30,
+            "ssp370": 41,
+            "ssp585": 51
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -117.782,
+              34.031
+            ],
+            [
+              -117.722,
+              34.031
+            ],
+            [
+              -117.722,
+              34.079
+            ],
+            [
+              -117.782,
+              34.079
+            ],
+            [
+              -117.782,
+              34.031
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-031",
+        "tract_fips": "06037501900",
+        "neighborhood": "Whittier",
+        "tree_canopy_pct": 12,
+        "impervious_pct": 50,
+        "building_density_idx": 41,
+        "slope_idx": 17,
+        "drainage_stress_idx": 40,
+        "resilience_idx": 53,
+        "social_vulnerability": 57,
+        "wildfire_baseline": 17,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 61,
+            "ssp370": 67,
+            "ssp585": 71
+          },
+          "2050": {
+            "ssp245": 69,
+            "ssp370": 76,
+            "ssp585": 81
+          },
+          "2080": {
+            "ssp245": 75,
+            "ssp370": 83,
+            "ssp585": 90
+          },
+          "2100": {
+            "ssp245": 79,
+            "ssp370": 88,
+            "ssp585": 95
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 24,
+            "ssp370": 28,
+            "ssp585": 31
+          },
+          "2050": {
+            "ssp245": 28,
+            "ssp370": 34,
+            "ssp585": 38
+          },
+          "2080": {
+            "ssp245": 32,
+            "ssp370": 40,
+            "ssp585": 46
+          },
+          "2100": {
+            "ssp245": 35,
+            "ssp370": 44,
+            "ssp585": 51
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 1,
+            "ssp370": 6,
+            "ssp585": 12
+          },
+          "2050": {
+            "ssp245": 5,
+            "ssp370": 13,
+            "ssp585": 21
+          },
+          "2080": {
+            "ssp245": 10,
+            "ssp370": 21,
+            "ssp585": 34
+          },
+          "2100": {
+            "ssp245": 14,
+            "ssp370": 29,
+            "ssp585": 42
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 22,
+            "ssp370": 27,
+            "ssp585": 32
+          },
+          "2050": {
+            "ssp245": 26,
+            "ssp370": 33,
+            "ssp585": 39
+          },
+          "2080": {
+            "ssp245": 30,
+            "ssp370": 39,
+            "ssp585": 47
+          },
+          "2100": {
+            "ssp245": 33,
+            "ssp370": 44,
+            "ssp585": 54
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.0595,
+              33.9545
+            ],
+            [
+              -118.0045,
+              33.9545
+            ],
+            [
+              -118.0045,
+              33.9995
+            ],
+            [
+              -118.0595,
+              33.9995
+            ],
+            [
+              -118.0595,
+              33.9545
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-032",
+        "tract_fips": "06037910300",
+        "neighborhood": "Lancaster",
+        "tree_canopy_pct": 14,
+        "impervious_pct": 53,
+        "building_density_idx": 44,
+        "slope_idx": 20,
+        "drainage_stress_idx": 43,
+        "resilience_idx": 56,
+        "social_vulnerability": 40,
+        "wildfire_baseline": 20,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 62,
+            "ssp370": 68,
+            "ssp585": 72
+          },
+          "2050": {
+            "ssp245": 70,
+            "ssp370": 77,
+            "ssp585": 82
+          },
+          "2080": {
+            "ssp245": 76,
+            "ssp370": 84,
+            "ssp585": 91
+          },
+          "2100": {
+            "ssp245": 80,
+            "ssp370": 89,
+            "ssp585": 96
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 27,
+            "ssp370": 31,
+            "ssp585": 34
+          },
+          "2050": {
+            "ssp245": 31,
+            "ssp370": 37,
+            "ssp585": 41
+          },
+          "2080": {
+            "ssp245": 35,
+            "ssp370": 43,
+            "ssp585": 49
+          },
+          "2100": {
+            "ssp245": 38,
+            "ssp370": 47,
+            "ssp585": 54
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 1,
+            "ssp370": 6,
+            "ssp585": 12
+          },
+          "2050": {
+            "ssp245": 5,
+            "ssp370": 13,
+            "ssp585": 21
+          },
+          "2080": {
+            "ssp245": 10,
+            "ssp370": 21,
+            "ssp585": 34
+          },
+          "2100": {
+            "ssp245": 14,
+            "ssp370": 29,
+            "ssp585": 42
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 24,
+            "ssp370": 29,
+            "ssp585": 34
+          },
+          "2050": {
+            "ssp245": 28,
+            "ssp370": 35,
+            "ssp585": 41
+          },
+          "2080": {
+            "ssp245": 32,
+            "ssp370": 41,
+            "ssp585": 49
+          },
+          "2100": {
+            "ssp245": 35,
+            "ssp370": 46,
+            "ssp585": 56
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.194,
+              34.668
+            ],
+            [
+              -118.114,
+              34.668
+            ],
+            [
+              -118.114,
+              34.728
+            ],
+            [
+              -118.194,
+              34.728
+            ],
+            [
+              -118.194,
+              34.668
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "cell_id": "la-033",
+        "tract_fips": "06037904002",
+        "neighborhood": "Palmdale",
+        "tree_canopy_pct": 16,
+        "impervious_pct": 56,
+        "building_density_idx": 48,
+        "slope_idx": 23,
+        "drainage_stress_idx": 27,
+        "resilience_idx": 43,
+        "social_vulnerability": 44,
+        "wildfire_baseline": 23,
+        "heat_projection": {
+          "2030": {
+            "ssp245": 64,
+            "ssp370": 70,
+            "ssp585": 74
+          },
+          "2050": {
+            "ssp245": 72,
+            "ssp370": 79,
+            "ssp585": 84
+          },
+          "2080": {
+            "ssp245": 78,
+            "ssp370": 86,
+            "ssp585": 93
+          },
+          "2100": {
+            "ssp245": 82,
+            "ssp370": 91,
+            "ssp585": 98
+          }
+        },
+        "wildfire_climate_modifier": {
+          "2030": {
+            "ssp245": 29,
+            "ssp370": 33,
+            "ssp585": 36
+          },
+          "2050": {
+            "ssp245": 33,
+            "ssp370": 39,
+            "ssp585": 43
+          },
+          "2080": {
+            "ssp245": 37,
+            "ssp370": 45,
+            "ssp585": 51
+          },
+          "2100": {
+            "ssp245": 40,
+            "ssp370": 49,
+            "ssp585": 56
+          }
+        },
+        "coastal_flood_projection": {
+          "2030": {
+            "ssp245": 1,
+            "ssp370": 6,
+            "ssp585": 12
+          },
+          "2050": {
+            "ssp245": 5,
+            "ssp370": 13,
+            "ssp585": 21
+          },
+          "2080": {
+            "ssp245": 10,
+            "ssp370": 21,
+            "ssp585": 34
+          },
+          "2100": {
+            "ssp245": 14,
+            "ssp370": 29,
+            "ssp585": 42
+          }
+        },
+        "inland_flood_projection": {
+          "2030": {
+            "ssp245": 27,
+            "ssp370": 32,
+            "ssp585": 37
+          },
+          "2050": {
+            "ssp245": 31,
+            "ssp370": 38,
+            "ssp585": 44
+          },
+          "2080": {
+            "ssp245": 35,
+            "ssp370": 44,
+            "ssp585": 52
+          },
+          "2100": {
+            "ssp245": 38,
+            "ssp370": 49,
+            "ssp585": 59
+          }
+        }
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -118.152,
+              34.5525
+            ],
+            [
+              -118.082,
+              34.5525
+            ],
+            [
+              -118.082,
+              34.6075
+            ],
+            [
+              -118.152,
+              34.6075
+            ],
+            [
+              -118.152,
+              34.5525
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}
