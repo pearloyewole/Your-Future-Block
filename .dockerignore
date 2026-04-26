@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.egg-info/
+.venv/
+venv/
+.env
+.env.local
+
+# Data (download/build artifacts)
+backend/data/raw/
+backend/data/processed/
+*.duckdb
+*.duckdb.wal
+*.parquet
+*.tif
+*.tiff
+*.nc
+*.zarr/
+*.shp
+*.shx
+*.dbf
+*.prj
+*.cpg
+*.gdb/
+*.zip
+*.gz
+*.mbtiles
+*.dump
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Postgres volume (if running locally without docker volumes)
+pgdata/
