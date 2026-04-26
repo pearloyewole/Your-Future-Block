@@ -117,7 +117,10 @@ const Index = () => {
           <p className="font-display text-3xl leading-tight md:text-4xl">
             What will your community look<br className="hidden md:block" /> like <Marker>tomorrow?</Marker>
           </p>
+  
           <div className="md:text-right">
+        
+
             <div className="flex flex-wrap items-center gap-4 md:justify-end">
               <span className="inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">
                 <span className="h-2 w-2 rounded-full bg-heat" /> Heat
@@ -129,9 +132,16 @@ const Index = () => {
                 <span className="h-2 w-2 rounded-full bg-flood" /> Flood
               </span>
             </div>
+            
             <p className="mt-2 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground md:text-right">
               2030 · 2050 · 2100 projections
             </p>
+              <Link
+              to="/atlas"
+              className="inline-flex items-center gap-2 bg-accent px-7 py-4 font-mono text-sm uppercase tracking-[0.16em] text-accent-foreground transition hover:bg-accent/90"
+            >
+              Launch <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
 
@@ -172,6 +182,7 @@ const Index = () => {
           </p>
         </div>
       </section>
+
 
       {/* 03 — The question */}
       <section className="border-t border-border/60 bg-secondary/40">
@@ -249,11 +260,10 @@ const Index = () => {
           <SectionLabel>04 — Method</SectionLabel>
           <div className="mt-8 grid gap-12 md:grid-cols-2">
             <h2 className="font-display text-6xl font-bold leading-[1.0] tracking-tight md:text-7xl">
-              Public data,<br /> honestly<br /> assembled.
+              Public data.
             </h2>
             <p className="self-end max-w-md font-display text-xl leading-snug text-muted-foreground">
-              Every layer is sourced, every assumption is named. The goal isn't a verdict — it's a conversation
-              your block can actually have.
+      
             </p>
           </div>
 
@@ -262,7 +272,7 @@ const Index = () => {
               { i: "i.", t: "Downscaled climate projections", b: "CMIP6 scenarios localized to neighborhood-scale grids across the LA basin." },
               { i: "ii.", t: "Official hazard maps", b: "FEMA flood zones, CAL FIRE severity zones, and urban heat island layers." },
               { i: "iii.", t: "Neighborhood vulnerability", b: "Census-tract demographics blended in to surface where impact compounds." },
-              { i: "iv.", t: "A score, in plain English", b: "Transparent risk score with a paragraph anyone can read — no jargon." },
+              { i: "iv.", t: "A score, in plain English", b: "Transparent risk score with a paragraph anyone can read coupled with actionable insights ." },
             ].map((m, idx) => (
               <div
                 key={m.i}

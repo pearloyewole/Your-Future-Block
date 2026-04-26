@@ -2,18 +2,21 @@ import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, Droplets, Flame, Layers, Thermometer } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { LAMap, type RiskMapPoint } from "@/components/atlas/LAMap";
 import { LAInteractiveMap } from "@/components/atlas/LAInteractiveMap";
+import { LA3DMap } from "@/components/atlas/LA3DMap";
 import {
   fetchConfig,
   fetchGeocodeRisk,
-  fetchMapCells,
+  fetchMapCellsGeoJson,
   fetchRiskForPoint,
+  mapCellsToPoints,
   type GeocodeResult,
   type HazardLayer,
+  type RiskMapCellsResponse,
   type RiskPayload,
+  type Scenario,
   type Year,
 } from "@/lib/api";
 
@@ -23,21 +26,41 @@ const HAZARDS: Array<{ id: HazardLayer; label: string }> = [
   { id: "wildfire", label: "Wildfire" },
   { id: "flood", label: "Flood" },
 ];
-const RISK_SENSITIVE_SCENARIO = "ssp585" as const;
-const RISK_SENSITIVE_SCENARIO_LABEL = "SSP5-8.5 (very high emissions)";
+const SCENARIOS: Array<{ id: Scenario; title: string; description: string }> = [
+  {
+    id: "ssp245",
+    title: "Lower warming (middle-of-the-road emissions)",
+    description: "Emissions rise slower and then level off over time."
+  },
+  {
+    id: "ssp370",
+    title: "High warming",
+    description: "Higher emissions path with stronger warming impacts."
+  },
+  {
+    id: "ssp585",
+    title: "Very high warming (risk-sensitive default)",
+    description: "Most severe warming path used to stress-test future risk."
+  }
+];
+const DEFAULT_SCENARIO: Scenario = "ssp585";
+const SCORE_TONE_VARS = ["--risk-1", "--risk-2", "--risk-3", "--risk-4", "--risk-5"] as const;
 
 export default function Atlas() {
-  const [address, setAddress] = useState("200 N Spring St, Los Angeles, CA");
+  const [address, setAddress] = useState("1200 E California Blvd, Pasadena, CA");
   const [year, setYear] = useState<Year>(2050);
+  const [scenario, setScenario] = useState<Scenario>(DEFAULT_SCENARIO);
   const [hazardLayer, setHazardLayer] = useState<HazardLayer>("heat");
-  const [mapView, setMapView] = useState<"interactive" | "stylized">("interactive");
+  const [mapView, setMapView] = useState<"interactive" | "stylized" | "3d">("3d");
 
   const [yearWindows, setYearWindows] = useState<Record<string, string>>({});
   const [mapPoints, setMapPoints] = useState<RiskMapPoint[]>([]);
+  const [mapCells, setMapCells] = useState<RiskMapCellsResponse | null>(null);
   const [risk, setRisk] = useState<RiskPayload | null>(null);
   const [geocoded, setGeocoded] = useState<GeocodeResult | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
   const [loading, setLoading] = useState(false);
+  const selectedScenarioMeta = SCENARIOS.find((item) => item.id === scenario) ?? SCENARIOS[2];
 
   useEffect(() => {
     const run = async () => {
@@ -54,23 +77,24 @@ export default function Atlas() {
   useEffect(() => {
     const run = async () => {
       try {
-        const points = await fetchMapCells({
+        const cells = await fetchMapCellsGeoJson({
           year,
-          scenario: RISK_SENSITIVE_SCENARIO,
+          scenario,
           hazard: hazardLayer,
         });
-        setMapPoints(points);
+        setMapCells(cells);
+        setMapPoints(mapCellsToPoints(cells));
       } catch (error) {
         setStatus(error instanceof Error ? error.message : "Could not load map layer.");
       }
     };
     void run();
-  }, [year, hazardLayer]);
+  }, [year, scenario, hazardLayer]);
 
   useEffect(() => {
     void analyzeAddress();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [year]);
+  }, [year, scenario]);
 
   const selectedCellId = risk?.cell_id ?? null;
   const selectedLat = geocoded?.lat ?? risk?.coordinates.lat ?? null;
@@ -93,7 +117,7 @@ export default function Atlas() {
       const payload = await fetchGeocodeRisk({
         address,
         year,
-        scenario: RISK_SENSITIVE_SCENARIO,
+        scenario,
       });
       setGeocoded(payload.geocoded);
       setRisk(payload.risk);
@@ -113,7 +137,7 @@ export default function Atlas() {
         lat: point.lat,
         lon: point.lon,
         year,
-        scenario: RISK_SENSITIVE_SCENARIO,
+        scenario,
       });
       setRisk(payload);
       setGeocoded({
@@ -142,16 +166,21 @@ export default function Atlas() {
             <ArrowLeft className="h-4 w-4" /> Back
           </Link>
           <span className="h-4 w-px bg-border" />
-          <h1 className="font-display text-lg font-bold tracking-tight">LA Risk Explorer · Live Node API</h1>
+          <h1 className="font-display text-lg font-bold tracking-tight">Your Future Block</h1>
         </div>
-        <Badge variant="outline" className="font-mono text-xs">
-          Node /api integration
-        </Badge>
       </header>
 
       <main className="relative isolate h-[calc(100vh-57px)] overflow-hidden bg-secondary/40">
         <section className="absolute inset-0 z-0">
-          {mapView === "interactive" ? (
+          {mapView === "3d" && mapCells ? (
+            <LA3DMap
+              cells={mapCells}
+              selectedCellId={selectedCellId}
+              selectedLat={selectedLat}
+              selectedLon={selectedLon}
+              onSelectPoint={handleSelectPoint}
+            />
+          ) : mapView === "interactive" ? (
             <LAInteractiveMap
               points={mapPoints}
               selectedCellId={selectedCellId}
@@ -171,8 +200,22 @@ export default function Atlas() {
 
           <div className="pointer-events-none absolute left-5 top-5 z-[1100] flex flex-col gap-2">
             <div className="pointer-events-auto rounded-xl border border-border bg-card/90 px-4 py-3 shadow-soft backdrop-blur">
-              <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Projection year</p>
-              <p className="font-display text-3xl font-bold leading-none">{year}</p>
+              <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Projection year</p>
+              <div className="grid grid-cols-2 gap-2">
+                {YEARS.map((y) => (
+                  <button
+                    key={y}
+                    onClick={() => setYear(y)}
+                    className={`rounded-md border px-2 py-1.5 text-sm font-semibold transition ${
+                      y === year
+                        ? "border-foreground bg-foreground text-background"
+                        : "border-border bg-secondary/70 hover:border-foreground/40"
+                    }`}
+                  >
+                    {y}
+                  </button>
+                ))}
+              </div>
               <p className="text-xs text-muted-foreground">{yearWindows[String(year)] ?? ""}</p>
             </div>
             <div className="pointer-events-auto rounded-xl border border-border bg-card/90 px-4 py-2 shadow-soft backdrop-blur">
@@ -182,7 +225,10 @@ export default function Atlas() {
               </div>
               <p className="text-xs font-semibold">{HAZARDS.find((h) => h.id === hazardLayer)?.label}</p>
               <p className="text-xs text-muted-foreground">
-                View: {mapView === "interactive" ? "Interactive" : "Stylized"}
+                View: {mapView === "interactive" ? "Interactive" : mapView === "stylized" ? "Stylized" : "3D chunks"}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                Scenario: {selectedScenarioMeta.title}
               </p>
               <p className="text-[11px] text-muted-foreground">{mapPoints.length.toLocaleString()} points loaded</p>
             </div>
@@ -207,44 +253,143 @@ export default function Atlas() {
             <h2 className="mt-1 font-display text-2xl font-bold">{risk?.neighborhood ?? "No selection"}</h2>
             <p className="mt-1 text-sm text-muted-foreground">
               {risk
-                ? `Tract ${risk.tract_fips ?? "unknown"} · High-risk pathway: ${RISK_SENSITIVE_SCENARIO_LABEL}`
+                ? `Tract ${risk.tract_fips ?? "unknown"} · Scenario: ${selectedScenarioMeta.title}`
                 : "Analyze an address or click a map point."}
             </p>
             <p className="mt-3 text-sm text-muted-foreground">
-              Combined score view removed. Compare hazard-specific scores below.
+              Screening-level output. Not a house-level prediction.
             </p>
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Year</p>
-            <div className="grid grid-cols-4 gap-2">
-              {YEARS.map((y) => (
-                <button
-                  key={y}
-                  onClick={() => setYear(y)}
-                  className={`rounded-lg border px-2 py-2 text-sm font-semibold transition ${
-                    y === year
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border bg-secondary/60 hover:border-foreground/40"
-                  }`}
-                >
-                  {y}
-                </button>
-              ))}
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Per-hazard scores</p>
+            <div className="space-y-2 text-sm">
+              <ScoreRow icon={<Thermometer className="h-4 w-4" />} label="Heat" value={risk?.scores.heat} />
+              <ScoreRow icon={<Flame className="h-4 w-4" />} label="Wildfire" value={risk?.scores.wildfire} />
+              <ScoreRow icon={<Droplets className="h-4 w-4" />} label="Flood" value={risk?.scores.flood} />
             </div>
-            <p className="mt-2 text-xs text-muted-foreground">{yearWindows[String(year)] ?? ""}</p>
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Scenario</p>
-            <p className="text-sm font-semibold">{RISK_SENSITIVE_SCENARIO_LABEL}</p>
-            <p className="mt-1 text-xs text-muted-foreground">
-              Locked to the most risk-sensitive pathway for awareness.
+            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Community Impact Explainer</p>
+            {risk ? (
+              <div className="space-y-3">
+                <p className="font-display text-base leading-snug">
+                  {risk.community_impact.main_concern}: {risk.community_impact.hazard_label}
+                </p>
+                <p className="text-sm text-muted-foreground">{risk.community_impact.what_this_means}</p>
+
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Likely disruptions</p>
+                  <ul className="mt-1 space-y-1">
+                    {risk.community_impact.likely_disruptions.map((item) => (
+                      <li key={item} className="text-sm">
+                        • {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <p className="font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Groups that may be more affected</p>
+                  <p className="mt-1 text-sm">
+                    {risk.community_impact.vulnerable_groups.length
+                      ? risk.community_impact.vulnerable_groups.join(", ")
+                      : "No specific group stands out in this snapshot."}
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Analyze an address to get neighborhood-level impact context.
+              </p>
+            )}
+          </div>
+
+          <div className="border-b border-border p-6">
+            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Coverage To Ask About</p>
+            {risk ? (
+              <div className="space-y-3">
+                <p className="text-sm text-muted-foreground">
+                  Risk profile: <span className="font-semibold text-foreground">{risk.insurance_guidance.risk_profile.replaceAll("_", " ")}</span>
+                </p>
+
+                {risk.insurance_guidance.coverage_sections.map((section) => (
+                  <div key={section.title}>
+                    <p className="text-sm font-semibold">{section.title}</p>
+                    <ul className="mt-1 space-y-1">
+                      {section.items.map((item) => (
+                        <li key={item} className="text-sm">
+                          • {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+
+                {risk.insurance_guidance.coverage_sections.length === 0 ? (
+                  <p className="text-sm text-muted-foreground">
+                    No special coverage flags were triggered for this risk profile.
+                  </p>
+                ) : null}
+
+                <p className="text-xs text-muted-foreground">
+                  {risk.insurance_guidance.disclaimer}
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Analyze an address to see educational coverage guidance.
+              </p>
+            )}
+          </div>
+
+          <div className="border-b border-border p-6">
+            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Summary</p>
+            <p className="font-display text-base leading-snug">
+              {risk?.explanation ?? "Analyze an address to get a plain-English summary."}
             </p>
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Map hazard layer</p>
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">How This Block Compares</p>
+            {risk ? (
+              <div className="space-y-2">
+                <ComparisonRow
+                  label="Heat"
+                  score={risk.scores.heat.score}
+                  median={risk.comparison.heat.la_median}
+                  benchmark={risk.comparison.heat.lowest_risk_benchmark}
+                  percentile={risk.comparison.heat.percentile}
+                  percentAboveMedian={risk.comparison.heat.percent_above_median}
+                />
+                <ComparisonRow
+                  label="Wildfire"
+                  score={risk.scores.wildfire.score}
+                  median={risk.comparison.wildfire.la_median}
+                  benchmark={risk.comparison.wildfire.lowest_risk_benchmark}
+                  percentile={risk.comparison.wildfire.percentile}
+                  percentAboveMedian={risk.comparison.wildfire.percent_above_median}
+                />
+                <ComparisonRow
+                  label="Flood"
+                  score={risk.scores.flood.score}
+                  median={risk.comparison.flood.la_median}
+                  benchmark={risk.comparison.flood.lowest_risk_benchmark}
+                  percentile={risk.comparison.flood.percentile}
+                  percentAboveMedian={risk.comparison.flood.percent_above_median}
+                />
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Analyze an address to see percentile ranking and baseline comparison.
+              </p>
+            )}
+          </div>
+
+          <div className="border-b border-border p-6">
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Map controls</p>
+            <p className="mb-2 text-xs text-muted-foreground">Hazard layer</p>
             <div className="grid grid-cols-2 gap-2">
               {HAZARDS.map((item) => (
                 <button
@@ -260,8 +405,18 @@ export default function Atlas() {
                 </button>
               ))}
             </div>
-            <p className="mb-3 mt-4 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Map view</p>
-            <div className="grid grid-cols-2 gap-2">
+            <p className="mb-2 mt-4 text-xs text-muted-foreground">Map view</p>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                onClick={() => setMapView("3d")}
+                className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
+                  mapView === "3d"
+                    ? "border-foreground bg-foreground text-background"
+                    : "border-border bg-secondary/60 hover:border-foreground/40"
+                }`}
+              >
+                3D
+              </button>
               <button
                 onClick={() => setMapView("interactive")}
                 className={`rounded-lg border px-3 py-2 text-sm font-semibold transition ${
@@ -286,19 +441,25 @@ export default function Atlas() {
           </div>
 
           <div className="border-b border-border p-6">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Per-hazard scores</p>
-            <div className="space-y-2 text-sm">
-              <ScoreRow icon={<Thermometer className="h-4 w-4" />} label="Heat" value={risk?.scores.heat} />
-              <ScoreRow icon={<Flame className="h-4 w-4" />} label="Wildfire" value={risk?.scores.wildfire} />
-              <ScoreRow icon={<Droplets className="h-4 w-4" />} label="Flood" value={risk?.scores.flood} />
+            <p className="mb-3 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">Emissions scenario</p>
+            <div className="space-y-2">
+              {SCENARIOS.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => setScenario(item.id)}
+                  className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition ${
+                    scenario === item.id
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border bg-secondary/60 hover:border-foreground/40"
+                  }`}
+                >
+                  <p className="font-semibold">{item.title}</p>
+                  <p className={`text-xs ${scenario === item.id ? "text-background/85" : "text-muted-foreground"}`}>
+                    {item.description}
+                  </p>
+                </button>
+              ))}
             </div>
-          </div>
-
-          <div className="border-b border-border p-6">
-            <p className="mb-2 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">What's driving this</p>
-            <p className="font-display text-base leading-snug">
-              {risk?.explanation ?? "Analyze an address to get a plain-English explanation."}
-            </p>
           </div>
 
           <div className="p-6">
@@ -337,15 +498,56 @@ function ScoreRow({
   label: string;
   value: { score: number; label: string } | undefined;
 }) {
+  const score = value?.score ?? 0;
+  const toneVar = SCORE_TONE_VARS[scoreTone(score) - 1];
+  const toneColor = `hsl(var(${toneVar}))`;
+  const toneBg = `hsl(var(${toneVar}) / 0.16)`;
+
   return (
-    <div className="flex items-center justify-between rounded-lg border border-border bg-secondary/30 px-3 py-2">
+    <div
+      className="flex items-center justify-between rounded-lg border px-3 py-2"
+      style={{
+        borderColor: `hsl(var(${toneVar}) / 0.35)`,
+        backgroundColor: `hsl(var(${toneVar}) / 0.08)`
+      }}
+    >
       <div className="flex items-center gap-2">
-        {icon}
+        <span style={{ color: toneColor }}>{icon}</span>
         <span className="font-semibold">{label}</span>
       </div>
-      <span className="font-mono text-xs">
+      <span
+        className="rounded px-2 py-1 font-mono text-xs"
+        style={{ color: toneColor, backgroundColor: toneBg }}
+      >
         {value ? `${Math.round(value.score)} (${value.label})` : "--"}
       </span>
+    </div>
+  );
+}
+
+function ComparisonRow({
+  label,
+  score,
+  median,
+  benchmark,
+  percentile,
+  percentAboveMedian,
+}: {
+  label: string;
+  score: number;
+  median: number;
+  benchmark: number;
+  percentile: number;
+  percentAboveMedian: number | null;
+}) {
+  return (
+    <div className="rounded-lg border border-border bg-secondary/30 px-3 py-2 text-sm">
+      <p className="font-semibold">
+        {label}: {Math.round(score)} / 100
+      </p>
+      <p className="text-muted-foreground">
+        {formatPercentDelta(percentAboveMedian)} vs LA median ({Math.round(median)}), percentile {percentile}, benchmark {Math.round(benchmark)}.
+      </p>
     </div>
   );
 }
@@ -359,4 +561,18 @@ function distanceKm(lat1: number, lon1: number, lat2: number, lon2: number): num
     Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
   return 2 * r * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function formatPercentDelta(value: number | null): string {
+  if (value === null) return "N/A";
+  if (value === 0) return "At parity";
+  return value > 0 ? `${value}% higher` : `${Math.abs(value)}% lower`;
+}
+
+function scoreTone(score: number): 1 | 2 | 3 | 4 | 5 {
+  if (score < 20) return 1;
+  if (score < 40) return 2;
+  if (score < 60) return 3;
+  if (score < 80) return 4;
+  return 5;
 }

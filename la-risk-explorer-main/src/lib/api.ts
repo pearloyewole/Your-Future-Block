@@ -5,6 +5,10 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
 export type Scenario = "ssp245" | "ssp370" | "ssp585";
 export type Year = 2030 | 2050 | 2080 | 2100;
 export type HazardLayer = "heat" | "wildfire" | "flood";
+export type RiskMapCellGeometry =
+  | { type: "Point"; coordinates: [number, number] }
+  | { type: "Polygon"; coordinates: [Array<[number, number]>] }
+  | { type: "MultiPolygon"; coordinates: Array<Array<Array<[number, number]>>> };
 
 export interface GeocodeResult {
   source: string;
@@ -20,6 +24,36 @@ export interface GeocodeResult {
 export interface RiskSummary {
   score: number;
   label: string;
+}
+
+export interface HazardComparison {
+  la_median: number;
+  lowest_risk_benchmark: number;
+  percent_above_median: number | null;
+  percentile: number;
+}
+
+export interface CommunityImpact {
+  main_concern: string;
+  hazard_score: number;
+  hazard_label: string;
+  what_this_means: string;
+  likely_disruptions: string[];
+  vulnerable_groups: string[];
+}
+
+export interface InsuranceGuidanceSection {
+  title: string;
+  items: string[];
+}
+
+export interface InsuranceGuidance {
+  risk_profile: string;
+  state: string;
+  property_type: string;
+  coverage_sections: InsuranceGuidanceSection[];
+  coverage_to_ask_about: string[];
+  disclaimer: string;
 }
 
 export interface RiskPayload {
@@ -43,6 +77,13 @@ export interface RiskPayload {
     flood: RiskSummary;
     overall: RiskSummary;
   };
+  comparison: {
+    heat: HazardComparison;
+    wildfire: HazardComparison;
+    flood: HazardComparison;
+  };
+  community_impact: CommunityImpact;
+  insurance_guidance: InsuranceGuidance;
   explanation: string | null;
 }
 
@@ -56,23 +97,22 @@ interface ConfigResponse {
   yearWindows: Record<string, string>;
 }
 
-interface MapCellsResponse {
+export interface RiskMapCellFeature {
+  type: "Feature";
+  geometry: RiskMapCellGeometry;
+  properties: {
+    cell_id: string;
+    neighborhood: string | null;
+    tract_fips: string | null;
+    hazard: string;
+    score: number;
+    label: string;
+  };
+}
+
+export interface RiskMapCellsResponse {
   type: "FeatureCollection";
-  features: Array<{
-    type: "Feature";
-    geometry:
-      | { type: "Point"; coordinates: [number, number] }
-      | { type: "Polygon"; coordinates: [Array<[number, number]>] }
-      | { type: "MultiPolygon"; coordinates: Array<Array<Array<[number, number]>>> };
-    properties: {
-      cell_id: string;
-      neighborhood: string | null;
-      tract_fips: string | null;
-      hazard: string;
-      score: number;
-      label: string;
-    };
-  }>;
+  features: RiskMapCellFeature[];
 }
 
 export async function fetchConfig(): Promise<ConfigResponse> {
@@ -107,25 +147,39 @@ export async function fetchMapCells(params: {
   scenario: Scenario;
   hazard: HazardLayer;
 }): Promise<RiskMapPoint[]> {
+  const payload = await fetchMapCellsGeoJson(params);
+  return mapCellsToPoints(payload);
+}
+
+export async function fetchMapCellsGeoJson(params: {
+  year: Year;
+  scenario: Scenario;
+  hazard: HazardLayer;
+}): Promise<RiskMapCellsResponse> {
   const query = new URLSearchParams({
     year: String(params.year),
     scenario: params.scenario,
     hazard: params.hazard,
     limit: "5000",
   });
-  const payload = await requestJson<MapCellsResponse>(`/api/map-cells?${query.toString()}`);
-  return payload.features.map((feature) => {
-    const [lon, lat] = centerFromGeometry(feature.geometry);
-    return {
-      cellId: feature.properties.cell_id,
-      lat,
-      lon,
-      score: feature.properties.score,
-      label: feature.properties.label,
-      neighborhood: feature.properties.neighborhood,
-      tractFips: feature.properties.tract_fips,
-    };
-  });
+  return requestJson<RiskMapCellsResponse>(`/api/map-cells?${query.toString()}`);
+}
+
+export function mapCellsToPoints(payload: RiskMapCellsResponse): RiskMapPoint[] {
+  return payload.features.map(mapCellFeatureToPoint);
+}
+
+export function mapCellFeatureToPoint(feature: RiskMapCellFeature): RiskMapPoint {
+  const [lon, lat] = centerFromGeometry(feature.geometry);
+  return {
+    cellId: feature.properties.cell_id,
+    lat,
+    lon,
+    score: feature.properties.score,
+    label: feature.properties.label,
+    neighborhood: feature.properties.neighborhood,
+    tractFips: feature.properties.tract_fips,
+  };
 }
 
 async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
@@ -144,9 +198,7 @@ async function requestJson<T>(path: string, init?: RequestInit): Promise<T> {
   return json as T;
 }
 
-function centerFromGeometry(
-  geometry: MapCellsResponse["features"][number]["geometry"]
-): [number, number] {
+function centerFromGeometry(geometry: RiskMapCellGeometry): [number, number] {
   if (geometry.type === "Point") {
     return geometry.coordinates;
   }

@@ -62,7 +62,9 @@ const server = createServer(async (req, res) => {
         lon: Number(body.lon),
         lat: Number(body.lat),
         year: body.year ?? 2050,
-        scenario: body.scenario ?? "ssp585"
+        scenario: body.scenario ?? "ssp585",
+        state: body.state ?? "CA",
+        propertyType: body.property_type ?? "homeowner"
       });
       sendJson(res, 200, result);
       return;
@@ -75,7 +77,9 @@ const server = createServer(async (req, res) => {
         lon: geocoded.lon,
         lat: geocoded.lat,
         year: body.year ?? 2050,
-        scenario: body.scenario ?? "ssp585"
+        scenario: body.scenario ?? "ssp585",
+        state: mapStateFipsToAbbrev(geocoded.state_fips) ?? body.state ?? "CA",
+        propertyType: body.property_type ?? "homeowner"
       });
       sendJson(res, 200, { geocoded, risk });
       return;
@@ -151,4 +155,10 @@ function contentType(filePath) {
   if (ext === ".css") return "text/css; charset=utf-8";
   if (ext === ".json") return "application/json; charset=utf-8";
   return "application/octet-stream";
+}
+
+function mapStateFipsToAbbrev(stateFips) {
+  if (!stateFips) return null;
+  if (String(stateFips) === "06") return "CA";
+  return null;
 }

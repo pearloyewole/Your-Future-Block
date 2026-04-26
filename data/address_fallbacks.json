@@ -33,5 +33,12 @@
     "lon": -118.1895,
     "tract_fips": "06037576001",
     "display_name": "250 E 1st St, Long Beach, CA 90802"
+  },
+  {
+    "address": "1200 E California Blvd, Pasadena, CA",
+    "lat": 34.149,
+    "lon": -118.145,
+    "tract_fips": "06037462202",
+    "display_name": "1200 E California Blvd, Pasadena, CA 91106"
   }
 ]
