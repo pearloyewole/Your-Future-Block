@@ -1,13 +1,4 @@
-"""Plain-English explanation of a risk row.
 
-Two backends:
-  * 'anthropic' / 'openai' -> hit the LLM with the driver snapshot
-  * 'none' (default) or any failure -> deterministic templated fallback so the
-    demo never goes silent
-
-The fallback explanation is good enough on its own; the LLM just makes it
-sound nicer. We always have *some* paragraph to render.
-"""
 from __future__ import annotations
 
 import logging

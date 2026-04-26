@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { Fragment, useEffect, useMemo } from "react";
 import { CircleMarker, MapContainer, Popup, TileLayer, useMap } from "react-leaflet";
 import type { RiskMapPoint } from "./LAMap";
 import { toneForRisk } from "@/lib/riskTone";
@@ -11,6 +11,8 @@ interface Props {
   focusVersion: number;
   onSelectPoint: (point: RiskMapPoint) => void;
 }
+
+const SELECTED_BLOCK_OUTLINE = "#2563eb";
 
 export function LAInteractiveMap({
   points,
@@ -51,36 +53,50 @@ export function LAInteractiveMap({
           percentAboveMedian: point.percentAboveMedian,
         });
         const color = scoreColor(tone);
-        const isSelected = point.cellId === selectedCellId;
+        const isSelected =
+          selectedCellId !== null && String(point.cellId) === String(selectedCellId);
         const radius = 5 + point.score / 14;
         return (
-          <CircleMarker
-            key={point.cellId}
-            center={[point.lat, point.lon]}
-            radius={radius}
-            pathOptions={{
-              color: isSelected ? "#0f172a" : "#ffffff",
-              weight: isSelected ? 2.4 : 1.2,
-              fillColor: color,
-              fillOpacity: isSelected ? 0.95 : 0.75,
-            }}
-            eventHandlers={{
-              click: () => onSelectPoint(point),
-            }}
-          >
-            <Popup>
-              <div className="space-y-1">
-                <div className="font-semibold">{point.neighborhood ?? "Map cell"}</div>
-                <div className="text-xs">Score: {point.score} ({point.label})</div>
-                <div className="text-xs">
-                  {point.percentAboveMedian === null
-                    ? "LA median comparison: N/A"
-                    : `LA median comparison: ${point.percentAboveMedian > 0 ? "+" : ""}${point.percentAboveMedian}%`}
+          <Fragment key={point.cellId}>
+            {isSelected ? (
+              <CircleMarker
+                center={[point.lat, point.lon]}
+                radius={radius + 3.8}
+                interactive={false}
+                pathOptions={{
+                  color: SELECTED_BLOCK_OUTLINE,
+                  weight: 2.8,
+                  fillOpacity: 0,
+                }}
+              />
+            ) : null}
+            <CircleMarker
+              center={[point.lat, point.lon]}
+              radius={radius}
+              pathOptions={{
+                color: isSelected ? SELECTED_BLOCK_OUTLINE : "#ffffff",
+                weight: isSelected ? 3 : 1.2,
+                fillColor: color,
+                fillOpacity: isSelected ? 0.95 : 0.75,
+              }}
+              eventHandlers={{
+                click: () => onSelectPoint(point),
+              }}
+            >
+              <Popup>
+                <div className="space-y-1">
+                  <div className="font-semibold">{point.neighborhood ?? "Map cell"}</div>
+                  <div className="text-xs">Score: {point.score} ({point.label})</div>
+                  <div className="text-xs">
+                    {point.percentAboveMedian === null
+                      ? "LA median comparison: N/A"
+                      : `LA median comparison: ${point.percentAboveMedian > 0 ? "+" : ""}${point.percentAboveMedian}%`}
+                  </div>
+                  <div className="text-xs text-muted-foreground">Tract: {point.tractFips ?? "unknown"}</div>
                 </div>
-                <div className="text-xs text-muted-foreground">Tract: {point.tractFips ?? "unknown"}</div>
-              </div>
-            </Popup>
-          </CircleMarker>
+              </Popup>
+            </CircleMarker>
+          </Fragment>
         );
       })}
 

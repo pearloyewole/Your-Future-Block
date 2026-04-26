@@ -17,6 +17,10 @@ let map;
 let mapLayer;
 let marker;
 let config;
+let selectedCellId = null;
+
+const SELECTED_BLOCK_OUTLINE = "#2563eb";
+const DEFAULT_BLOCK_OUTLINE = "#35564f";
 
 setupMap();
 await loadConfig();
@@ -40,7 +44,7 @@ scenarioSelect.addEventListener("change", async () => {
 });
 
 hazardSelect.addEventListener("change", async () => {
-  await refreshMapCells();
+  await refreshMapCells(selectedCellId);
 });
 
 addressInput.addEventListener("keydown", async (event) => {
@@ -105,8 +109,9 @@ async function runAnalysis() {
     const data = await response.json();
     if (!response.ok) throw new Error(data.detail || "Analysis failed.");
 
+    selectedCellId = data.risk.cell_id ?? null;
     renderResult(data);
-    await refreshMapCells(data.risk.cell_id);
+    await refreshMapCells(selectedCellId);
     setStatus(`Done. Source: ${data.geocoded.source}.`);
   } catch (error) {
     setStatus(error.message || "Could not run analysis.");
@@ -115,6 +120,9 @@ async function runAnalysis() {
 
 async function refreshMapCells(activeCellId = null) {
   try {
+    if (activeCellId) {
+      selectedCellId = activeCellId;
+    }
     const year = selectedYear();
     const scenario = selectedScenario();
     const hazard = selectedHazard();
@@ -138,23 +146,20 @@ async function refreshMapCells(activeCellId = null) {
 
     mapLayer = L.geoJSON(layerData, {
       pointToLayer: (feature, latlng) => {
-        const score = feature.properties.score;
-        const isActive = activeCellId && feature.properties.cell_id === activeCellId;
-        return L.circleMarker(latlng, {
-          radius: isActive ? 8 : 5,
-          color: isActive ? "#0b3f37" : "#35564f",
-          weight: isActive ? 2.5 : 1,
-          fillOpacity: isActive ? 0.86 : 0.72,
-          fillColor: scoreColor(score)
-        });
+        return L.circleMarker(latlng, markerStyle(feature));
       },
       onEachFeature: (feature, layer) => {
         const p = feature.properties;
         layer.bindPopup(
           `<strong>${p.neighborhood || "Cell"}</strong><br/>Score: ${p.score} (${p.label})`
         );
+        layer.on("click", () => {
+          selectedCellId = p.cell_id;
+          applySelectedBlockStyle();
+        });
       }
     }).addTo(map);
+    applySelectedBlockStyle();
   } catch (error) {
     setStatus(error.message || "Could not refresh map.");
   }
@@ -191,4 +196,27 @@ function scoreColor(score) {
   if (score <= 60) return "#dfc84f";
   if (score <= 80) return "#de8a42";
   return "#ce4a3c";
+}
+
+function markerStyle(feature) {
+  const score = feature.properties.score;
+  const isSelected = Boolean(selectedCellId) && feature.properties.cell_id === selectedCellId;
+  return {
+    radius: isSelected ? 8 : 5,
+    color: isSelected ? SELECTED_BLOCK_OUTLINE : DEFAULT_BLOCK_OUTLINE,
+    weight: isSelected ? 3 : 1,
+    fillOpacity: isSelected ? 0.86 : 0.72,
+    fillColor: scoreColor(score)
+  };
+}
+
+function applySelectedBlockStyle() {
+  if (!mapLayer) return;
+  mapLayer.eachLayer((layer) => {
+    if (!layer.feature || typeof layer.setStyle !== "function") return;
+    layer.setStyle(markerStyle(layer.feature));
+    if (layer.feature.properties.cell_id === selectedCellId && typeof layer.bringToFront === "function") {
+      layer.bringToFront();
+    }
+  });
 }

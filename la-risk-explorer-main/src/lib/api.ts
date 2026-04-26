@@ -1,6 +1,13 @@
 import type { RiskMapPoint } from "@/components/atlas/LAMap";
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL ?? "";
+const DEFAULT_REMOTE_API_BASE = "https://falling-mountain-6507.fly.dev";
+const isLocalHost =
+  typeof window !== "undefined" &&
+  (window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1");
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ??
+  (isLocalHost ? "" : DEFAULT_REMOTE_API_BASE);
 
 export type Scenario = "ssp245" | "ssp370" | "ssp585";
 export type Year = 2030 | 2050 | 2080 | 2100;
@@ -174,7 +181,7 @@ export function mapCellsToPoints(payload: RiskMapCellsResponse): RiskMapPoint[] 
 export function mapCellFeatureToPoint(feature: RiskMapCellFeature): RiskMapPoint {
   const [lon, lat] = centerFromGeometry(feature.geometry);
   return {
-    cellId: feature.properties.cell_id,
+    cellId: String(feature.properties.cell_id),
     lat,
     lon,
     score: feature.properties.score,

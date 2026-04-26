@@ -60,6 +60,7 @@ export default function Atlas() {
   const [mapCells, setMapCells] = useState<RiskMapCellsResponse | null>(null);
   const [risk, setRisk] = useState<RiskPayload | null>(null);
   const [geocoded, setGeocoded] = useState<GeocodeResult | null>(null);
+  const [selectedCellId, setSelectedCellId] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
   const [loading, setLoading] = useState(false);
   const [focusVersion, setFocusVersion] = useState(0);
@@ -96,20 +97,25 @@ export default function Atlas() {
 
   useEffect(() => {
     if (!geocoded) return;
-    void analyzeAddress();
+    if (address.trim()) {
+      void analyzeAddress();
+      return;
+    }
+    void refreshSelectedPointRisk();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [year, scenario]);
 
-  const selectedCellId = risk?.cell_id ?? null;
   const selectedLat = geocoded?.lat ?? risk?.coordinates.lat ?? null;
   const selectedLon = geocoded?.lon ?? risk?.coordinates.lon ?? null;
   const hasAnalysis = Boolean(risk);
+  const activeCellId = selectedCellId ?? normalizeCellId(risk?.cell_id);
 
   const nearby = useMemo(() => {
     if (!risk) return [];
     const origin = risk.coordinates;
+    const currentCellId = String(risk.cell_id);
     return mapPoints
-      .filter((p) => p.cellId !== risk.cell_id)
+      .filter((p) => String(p.cellId) !== currentCellId)
       .map((point) => ({ point, d: distanceKm(origin.lat, origin.lon, point.lat, point.lon) }))
       .sort((a, b) => a.d - b.d)
       .slice(0, 6);
@@ -131,6 +137,7 @@ export default function Atlas() {
       });
       setGeocoded(payload.geocoded);
       setRisk(payload.risk);
+      setSelectedCellId(normalizeCellId(payload.risk.cell_id));
       setFocusVersion((v) => v + 1);
       setStatus(`Done. Source: ${payload.geocoded.source}.`);
     } catch (error) {
@@ -141,6 +148,9 @@ export default function Atlas() {
   }
 
   async function handleSelectPoint(point: RiskMapPoint) {
+    const normalizedPointCellId = normalizeCellId(point.cellId);
+    setSelectedCellId(normalizedPointCellId);
+    setAddress("");
     setLoading(true);
     setStatus("Loading selected block...");
     try {
@@ -151,6 +161,7 @@ export default function Atlas() {
         scenario,
       });
       setRisk(payload);
+      setSelectedCellId(normalizeCellId(payload.cell_id) ?? normalizedPointCellId);
       setGeocoded({
         source: "map_selection",
         input_address: address,
@@ -165,6 +176,27 @@ export default function Atlas() {
       setStatus(`Selected ${point.neighborhood ?? "map point"}.`);
     } catch (error) {
       setStatus(error instanceof Error ? error.message : "Could not load selected block.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function refreshSelectedPointRisk() {
+    if (!geocoded) return;
+    setLoading(true);
+    setStatus("Updating selected block...");
+    try {
+      const payload = await fetchRiskForPoint({
+        lat: geocoded.lat,
+        lon: geocoded.lon,
+        year,
+        scenario,
+      });
+      setRisk(payload);
+      setSelectedCellId(normalizeCellId(payload.cell_id));
+      setStatus("Updated selected block.");
+    } catch (error) {
+      setStatus(error instanceof Error ? error.message : "Could not update selected block.");
     } finally {
       setLoading(false);
     }
@@ -187,7 +219,7 @@ export default function Atlas() {
           {mapView === "3d" && mapCells ? (
             <LA3DMap
               cells={mapCells}
-              selectedCellId={selectedCellId}
+              selectedCellId={activeCellId}
               selectedLat={selectedLat}
               selectedLon={selectedLon}
               focusVersion={focusVersion}
@@ -196,7 +228,7 @@ export default function Atlas() {
           ) : mapView === "interactive" ? (
             <LAInteractiveMap
               points={mapPoints}
-              selectedCellId={selectedCellId}
+              selectedCellId={activeCellId}
               selectedLat={selectedLat}
               selectedLon={selectedLon}
               focusVersion={focusVersion}
@@ -205,7 +237,7 @@ export default function Atlas() {
           ) : (
             <LAMap
               points={mapPoints}
-              selectedCellId={selectedCellId}
+              selectedCellId={activeCellId}
               selectedLat={selectedLat}
               selectedLon={selectedLon}
               onSelectPoint={handleSelectPoint}
@@ -564,4 +596,10 @@ function formatPercentDelta(value: number | null): string {
   if (value === null) return "N/A";
   if (value === 0) return "At parity";
   return value > 0 ? `${value}% higher` : `${Math.abs(value)}% lower`;
+}
+
+function normalizeCellId(value: unknown): string | null {
+  if (value === null || value === undefined) return null;
+  const normalized = String(value).trim();
+  return normalized.length > 0 ? normalized : null;
 }

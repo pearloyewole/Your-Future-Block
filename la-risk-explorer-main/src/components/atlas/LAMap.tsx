@@ -26,6 +26,7 @@ const MIN_LAT = 33.5;
 const MAX_LAT = 34.9;
 
 const RISK_VARS = ["--risk-1", "--risk-2", "--risk-3", "--risk-4", "--risk-5"] as const;
+const SELECTED_BLOCK_OUTLINE = "#2563eb";
 
 export function LAMap({
   points,
@@ -87,7 +88,8 @@ export function LAMap({
       />
 
       {projected.map(({ point, x, y, tone }) => {
-        const isSelected = point.cellId === selectedCellId;
+        const isSelected =
+          selectedCellId !== null && String(point.cellId) === String(selectedCellId);
         const colorVar = RISK_VARS[tone - 1];
         const radius = 3.5 + (point.score / 100) * 8;
         return (
@@ -102,9 +104,9 @@ export function LAMap({
                 cy={y}
                 r={radius + 7}
                 fill="none"
-                stroke={`hsl(var(${colorVar}))`}
-                strokeWidth="1.5"
-                opacity="0.6"
+                stroke={SELECTED_BLOCK_OUTLINE}
+                strokeWidth="2.8"
+                opacity="0.95"
               />
             ) : null}
             <circle
@@ -113,8 +115,8 @@ export function LAMap({
               r={radius}
               fill={`hsl(var(${colorVar}))`}
               fillOpacity={isSelected ? 0.92 : 0.72}
-              stroke={isSelected ? "hsl(var(--foreground))" : "hsl(var(--background))"}
-              strokeWidth={isSelected ? 1.8 : 1}
+              stroke={isSelected ? SELECTED_BLOCK_OUTLINE : "hsl(var(--background))"}
+              strokeWidth={isSelected ? 2.4 : 1}
             />
           </g>
         );
@@ -127,14 +129,14 @@ export function LAMap({
             cy={selectedMarker.y}
             r={7}
             fill="none"
-            stroke="hsl(var(--foreground))"
-            strokeWidth="2"
+            stroke={SELECTED_BLOCK_OUTLINE}
+            strokeWidth="2.6"
           />
           <circle
             cx={selectedMarker.x}
             cy={selectedMarker.y}
             r={2.4}
-            fill="hsl(var(--foreground))"
+            fill={SELECTED_BLOCK_OUTLINE}
           />
         </g>
       ) : null}

@@ -20,6 +20,8 @@ const SOURCE_ID = "risk-cells";
 const EXTRUSION_LAYER_ID = "risk-cells-3d";
 const OUTLINE_LAYER_ID = "risk-cells-outline";
 const SELECTED_LAYER_ID = "risk-cells-selected";
+const POINT_LAYER_ID = "risk-cells-points";
+const SELECTED_POINT_LAYER_ID = "risk-cells-points-selected";
 const OSM_STYLE: StyleSpecification = {
   version: 8,
   sources: {
@@ -89,7 +91,7 @@ export function LA3DMap({
     });
     mapRef.current = map;
 
-      map.on("load", () => {
+    map.on("load", () => {
       map.addSource(SOURCE_ID, {
         type: "geojson",
         data: cells,
@@ -142,24 +144,72 @@ export function LA3DMap({
       });
 
       map.addLayer({
+        id: POINT_LAYER_ID,
+        type: "circle",
+        source: SOURCE_ID,
+        paint: {
+          "circle-color": [
+            "step",
+            ["coalesce", ["to-number", ["get", "percent_above_median"]], 0],
+            "#2a8f5d",
+            -30,
+            "#73b767",
+            -10,
+            "#dfc84f",
+            10,
+            "#de8a42",
+            30,
+            "#ce4a3c",
+          ],
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["to-number", ["get", "score"], 0],
+            0,
+            3.3,
+            100,
+            8.4,
+          ],
+          "circle-opacity": 0.75,
+          "circle-stroke-color": "rgba(255,255,255,0.75)",
+          "circle-stroke-width": 1.1,
+        },
+      });
+
+      map.addLayer({
         id: SELECTED_LAYER_ID,
         type: "line",
         source: SOURCE_ID,
         filter: ["==", ["get", "cell_id"], ""],
         paint: {
-          "line-color": "#0f172a",
-          "line-width": 3,
+          "line-color": "#2563eb",
+          "line-width": 5,
         },
       });
 
-      map.on("mousemove", EXTRUSION_LAYER_ID, () => {
-        map.getCanvas().style.cursor = "pointer";
-      });
-      map.on("mouseleave", EXTRUSION_LAYER_ID, () => {
-        map.getCanvas().style.cursor = "";
+      map.addLayer({
+        id: SELECTED_POINT_LAYER_ID,
+        type: "circle",
+        source: SOURCE_ID,
+        filter: ["==", ["get", "cell_id"], ""],
+        paint: {
+          "circle-color": "#2563eb",
+          "circle-opacity": 0.06,
+          "circle-radius": [
+            "interpolate",
+            ["linear"],
+            ["to-number", ["get", "score"], 0],
+            0,
+            8.2,
+            100,
+            14.5,
+          ],
+          "circle-stroke-color": "#2563eb",
+          "circle-stroke-width": 3.6,
+        },
       });
 
-        map.on("click", EXTRUSION_LAYER_ID, (event) => {
+      const handleFeatureClick = (event: { features?: MapGeoJSONFeature[] }) => {
         const feature = event.features?.[0];
         if (!feature) return;
 
@@ -169,15 +219,33 @@ export function LA3DMap({
         const point =
           pointIndexRef.current.get(cellId) ??
           mapFeatureToPoint(normalizeMapFeature(feature));
-          onSelectPointRef.current(point);
-        });
+        onSelectPointRef.current(point);
+      };
 
-        const readyLat = selectedLatRef.current;
-        const readyLon = selectedLonRef.current;
-        if (readyLat !== null && readyLon !== null) {
-          flyToSelection(map, readyLat, readyLon);
-        }
-      });
+      const clickableLayers = [
+        EXTRUSION_LAYER_ID,
+        OUTLINE_LAYER_ID,
+        POINT_LAYER_ID,
+        SELECTED_LAYER_ID,
+        SELECTED_POINT_LAYER_ID,
+      ] as const;
+
+      for (const layerId of clickableLayers) {
+        map.on("mousemove", layerId, () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+        map.on("mouseleave", layerId, () => {
+          map.getCanvas().style.cursor = "";
+        });
+        map.on("click", layerId, handleFeatureClick);
+      }
+
+      const readyLat = selectedLatRef.current;
+      const readyLon = selectedLonRef.current;
+      if (readyLat !== null && readyLon !== null) {
+        flyToSelection(map, readyLat, readyLon);
+      }
+    });
 
     return () => {
       map.remove();
@@ -204,13 +272,18 @@ export function LA3DMap({
   useEffect(() => {
     const map = mapRef.current;
     if (!map || !map.isStyleLoaded()) return;
-    if (!map.getLayer(SELECTED_LAYER_ID)) return;
-
-    map.setFilter(SELECTED_LAYER_ID, [
+    const filter = [
       "==",
-      ["get", "cell_id"],
+      ["to-string", ["get", "cell_id"]],
       selectedCellId ?? "",
-    ] as unknown as maplibregl.FilterSpecification);
+    ] as unknown as maplibregl.FilterSpecification;
+
+    if (map.getLayer(SELECTED_LAYER_ID)) {
+      map.setFilter(SELECTED_LAYER_ID, filter);
+    }
+    if (map.getLayer(SELECTED_POINT_LAYER_ID)) {
+      map.setFilter(SELECTED_POINT_LAYER_ID, filter);
+    }
   }, [selectedCellId]);
 
   useEffect(() => {
@@ -260,7 +333,7 @@ function flattenGeometry(geometry: RiskMapCellGeometry): Array<[number, number]>
 function mapFeatureToPoint(feature: RiskMapCellFeature): RiskMapPoint {
   const [lon, lat] = centerFromGeometry(feature.geometry);
   return {
-    cellId: feature.properties.cell_id,
+    cellId: String(feature.properties.cell_id),
     lat,
     lon,
     score: Number(feature.properties.score ?? 0),
